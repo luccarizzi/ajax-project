@@ -2,11 +2,11 @@
 var $searchInput = document.getElementById("symbol-search");
 
 $searchInput.addEventListener("focus", function(e) {
-  console.log("focus")
+  $searchInput.setAttribute("placeholder", "");
 })
 
 $searchInput.addEventListener("blur", function(e) {
-  console.log("blur");
+  $searchInput.setAttribute("placeholder", "Stock symbol");
 })
 
 var symbol = "";
