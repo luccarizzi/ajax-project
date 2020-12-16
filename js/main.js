@@ -33,6 +33,11 @@ document.addEventListener('submit', function (e) {
 
   xhr.addEventListener('load', function (e) {
     request = xhr.response;
+
+    if (request.Symbol === undefined) {
+      $closeModal.style.display = 'flex';
+    }
+
     var stockInfo = {
       symbol: request.Symbol,
       name: request.Name,
