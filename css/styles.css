@@ -6,8 +6,16 @@
   display: flex;
 }
 
+.wrap {
+  flex-wrap: wrap;
+}
+
 .justify-around {
   justify-content: space-around;
+}
+
+.justify-center {
+  justify-content: center;
 }
 
 .align-center {
@@ -16,6 +24,10 @@
 
 .font {
   font-family: 'Varela Round', sans-serif;
+}
+
+.text-center {
+  text-align: center;
 }
 
 /* semantic classes */
@@ -38,4 +50,44 @@ a {
 
 header {
   background-color: #007b25;
+}
+
+section {
+  margin: 4rem 0;
+}
+
+.symbol-form input {
+  border: none;
+  background: none;
+  outline: none;
+  font-size: 1.2rem;
+  padding: 0.5rem 0;
+}
+
+.symbol-form label {
+  font-size: 1.8rem;
+  margin: 1rem 0;
+}
+
+.search-box {
+  border: 2px solid #a61700;
+  border-radius: 2rem;
+  padding: 0 1rem;
+}
+
+#symbol-search::placeholder {
+  color: #e0e0e0;
+}
+
+#symbol-submit {
+  color: #a61700;
+  font-weight: 700;
+}
+
+#symbol-submit:focus {
+  color: #ff2300;
+}
+
+#symbol-submit:hover {
+  color: #ff2300;
 }

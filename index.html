@@ -10,8 +10,9 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
     integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==">
   <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/layout.css">
+
 </head>
 <body>
   <header>
@@ -26,8 +27,32 @@
     </div>
   </header>
   <main>
-    <div>
+    <div class="container">
+      <section>
+        <form class="flex wrap justify-center symbol-form">
 
+          <label
+          class="column-1 text-center"
+          for="symbol-search">
+          Search by stock symbol
+          </label>
+
+          <div class="search-box">
+            <input
+            id="symbol-search"
+            name="symbol-search"
+            type="text"
+            placeholder="Stock symbol">
+
+            <input
+            id="symbol-submit"
+            name="symbol-submit"
+            type="submit"
+            value="Go">
+          </div>
+
+        </form>
+      </section>
     </div>
   </main>
   <script src="js/data.js"></script>
