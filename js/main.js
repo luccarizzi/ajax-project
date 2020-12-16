@@ -2,7 +2,7 @@
 var symbol = "";
 var apiKey = 'JI3EUIMS58M4XZ08';
 
-var requestReturn; // delete after
+var request;
 
 document.addEventListener('submit', function (e) {
   e.preventDefault();
@@ -15,7 +15,18 @@ document.addEventListener('submit', function (e) {
   xhr.responseType = 'json';
 
   xhr.addEventListener('load', function (e) {
-    requestReturn = xhr.response;
+    request = xhr.response;
+
+    var stockInfo = {
+      symbol: request.Symbol,
+      name: request.Name,
+      industry: request.Industry,
+      country: request.Country,
+      dividendPerShare: request.DividendPerShare,
+      dividendYield: request.DividendYield,
+      dividendDate: request.DividendDate
+    }
+    stocks.push(stockInfo);
   })
 
   xhr.send();
