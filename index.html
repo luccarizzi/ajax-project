@@ -14,19 +14,34 @@
   <link rel="stylesheet" href="css/layout.css">
 
 </head>
-<body>
+<body class="varela-round">
+
+  <div class="modal" style="display: flex">
+    <div class="modal-content flex flex-column align-center">
+      <h2>This symbol does not exist</h2>
+      <p>
+        Unfortuntately, the symbol you entered does not exist.
+      </p>
+      <input
+      class="close-modal-button"
+      name="close-modal-button"
+      type="submit"
+      value="Close">
+    </div>
+  </div>
+
   <header>
     <div class="container flex">
       <div class="logo">
         <h1>turtl</h1>
       </div>
-      <nav class="flex justify-around align-center font">
+      <nav class="flex justify-around align-center">
         <a href="#"><i class="fas fa-star"></i> Favorites</a>
         <a href="#"><i class="fas fa-search"></i> Search</a>
       </nav>
     </div>
   </header>
-  <main class="varela-round">
+  <main>
     <div class="container">
       <section>
         <form id="search-symbol-form" class="flex wrap justify-center symbol-form">

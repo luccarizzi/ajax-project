@@ -36,6 +36,7 @@ document.addEventListener('submit', function (e) {
       dividendDate: request.DividendDate
     }
     stocks.push(stockInfo);
+    console.log(stocks)
   })
 
   xhr.send();
