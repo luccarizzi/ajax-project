@@ -17,6 +17,7 @@
 .logo {
   width: 40%;
   margin-left: 1rem;
+  color: #fff;
 }
 
 nav {
@@ -25,9 +26,9 @@ nav {
 
 a {
   text-decoration: none;
-  color: #000;
+  color: #fff;
 }
 
 header {
-  background-color: bisque;
+  background-color: #007b25;
 }
