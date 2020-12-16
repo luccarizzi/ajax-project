@@ -139,20 +139,20 @@ section {
   margin-top: 1rem;
   outline: none;
   border: none;
-  background-color: #A61700;
+  background-color: #ca4632;
   color: #ffffff;
   padding: 0.5rem;
   border-radius: 1rem;
   align-self: flex-end;
   font-size: 1.2rem;
   font-family: 'Varela Round', sans-serif;
-  box-shadow: 1px 1px 2px #A61700;
+  box-shadow: 1px 1px 2px #ca4632;
 }
 
 .close-modal-button:focus,
 .close-modal-button:hover {
-  background-color: #FF5A40;
-  box-shadow: 1px 1px 2px #FF5A40;
+  background-color: #A61700;
+  box-shadow: 1px 1px 2px #A61700;
 }
 
 .close-modal-button:active {

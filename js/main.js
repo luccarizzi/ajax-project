@@ -10,6 +10,11 @@ $searchInput.addEventListener("blur", function(e) {
 })
 
 var $closeButton = document.getElementById('close-modal-button');
+var $closeModal = document.getElementById('close-modal');
+
+$closeButton.addEventListener('click', function(e) {
+  $closeModal.style.display = 'none';
+})
 
 var symbol = "";
 var apiKey = 'JI3EUIMS58M4XZ08';
