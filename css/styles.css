@@ -1,0 +1,33 @@
+/* utility classes */
+
+.flex {
+  display: flex;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.align-center {
+  align-items: center;
+}
+
+/* semantic classes */
+
+.logo {
+  width: 40%;
+  margin-left: 1rem;
+}
+
+nav {
+  width: 60%;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+header {
+  background-color: bisque;
+}
