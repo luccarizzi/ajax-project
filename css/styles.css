@@ -30,6 +30,10 @@
   text-align: center;
 }
 
+.varela-round {
+  font-family: 'Varela Round', sans-serif;
+}
+
 /* semantic classes */
 
 .logo {
@@ -67,27 +71,30 @@ section {
 .symbol-form label {
   font-size: 1.8rem;
   margin: 1rem 0;
+  color: #fff;
 }
 
 .search-box {
-  border: 2px solid #a61700;
+  border: 2px solid #fff;
   border-radius: 2rem;
   padding: 0 1rem;
 }
 
 #symbol-search::placeholder {
-  color: #e0e0e0;
+  color: #545454;
+  font-family: 'Varela Round', sans-serif;
 }
 
 #symbol-submit {
-  color: #a61700;
-  font-weight: 700;
+  color: #fff;
+  font-weight: 1000;
+  font-family: 'Varela Round', sans-serif;
 }
 
 #symbol-submit:focus {
-  color: #ff2300;
+  color: #ff5a40;
 }
 
 #symbol-submit:hover {
-  color: #ff2300;
+  color: #ff5a40;
 }
