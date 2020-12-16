@@ -1,5 +1,7 @@
 /* utility classes */
 
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Varela+Round&display=swap');
+
 .flex {
   display: flex;
 }
@@ -12,12 +14,17 @@
   align-items: center;
 }
 
+.font {
+  font-family: 'Varela Round', sans-serif;
+}
+
 /* semantic classes */
 
 .logo {
   width: 40%;
   margin-left: 1rem;
   color: #fff;
+  font-family: 'Bungee', cursive;
 }
 
 nav {
