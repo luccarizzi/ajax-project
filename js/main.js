@@ -2,7 +2,7 @@
 var symbol = "";
 var apiKey = 'JI3EUIMS58M4XZ08';
 
-var requestReturn;
+var requestReturn; // delete after
 
 document.addEventListener('submit', function (e) {
   e.preventDefault();
