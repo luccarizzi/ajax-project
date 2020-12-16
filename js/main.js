@@ -14,6 +14,7 @@ var $closeModal = document.getElementById('close-modal');
 
 $closeButton.addEventListener('click', function(e) {
   $closeModal.style.display = 'none';
+  document.forms["search-symbol-form"].reset();
 })
 
 var symbol = "";
@@ -26,9 +27,7 @@ document.addEventListener('submit', function (e) {
   symbol = document.forms["search-symbol-form"].elements["symbol-search"].value.toUpperCase();
 
   var xhr = new XMLHttpRequest();
-  xhr.open(
-    'GET',
-    'https://www.alphavantage.co/query?function=OVERVIEW&symbol=' + symbol + '&apikey=' + apiKey);
+  xhr.open('GET','https://www.alphavantage.co/query?function=OVERVIEW&symbol=' + symbol + '&apikey=' + apiKey);
   xhr.responseType = 'json';
 
   xhr.addEventListener('load', function (e) {
@@ -36,20 +35,20 @@ document.addEventListener('submit', function (e) {
 
     if (request.Symbol === undefined) {
       $closeModal.style.display = 'flex';
+    } else {
+      var stockInfo = {
+        symbol: request.Symbol,
+        name: request.Name,
+        industry: request.Industry,
+        country: request.Country,
+        dividendPerShare: request.DividendPerShare,
+        dividendYield: request.DividendYield,
+        dividendDate: request.DividendDate
+      }
+      stocks.push(stockInfo);
+      document.forms["search-symbol-form"].reset();
+      console.log(stocks)
     }
-
-    var stockInfo = {
-      symbol: request.Symbol,
-      name: request.Name,
-      industry: request.Industry,
-      country: request.Country,
-      dividendPerShare: request.DividendPerShare,
-      dividendYield: request.DividendYield,
-      dividendDate: request.DividendDate
-    }
-    stocks.push(stockInfo);
-    console.log(stocks)
   })
-
   xhr.send();
 });

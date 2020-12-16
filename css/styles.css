@@ -38,6 +38,10 @@
   font-family: 'Varela Round', sans-serif;
 }
 
+p {
+  line-height: 1.5rem;
+}
+
 /* semantic classes */
 
 .logo {
@@ -127,7 +131,7 @@ section {
 }
 
 .modal-content {
-  width: 500px;
+  width: 450px;
   max-width: 100%;
   background-color: #ffffff;
   border-radius: 1rem;
