@@ -1,4 +1,14 @@
 
+var $searchInput = document.getElementById("symbol-search");
+
+$searchInput.addEventListener("focus", function(e) {
+  console.log("focus")
+})
+
+$searchInput.addEventListener("blur", function(e) {
+  console.log("blur");
+})
+
 var symbol = "";
 var apiKey = 'JI3EUIMS58M4XZ08';
 
@@ -16,7 +26,6 @@ document.addEventListener('submit', function (e) {
 
   xhr.addEventListener('load', function (e) {
     request = xhr.response;
-
     var stockInfo = {
       symbol: request.Symbol,
       name: request.Name,
