@@ -80,6 +80,11 @@ section {
   padding: 0 1rem;
 }
 
+#symbol-search {
+  color: #fff;
+  font-family: 'Varela Round', sans-serif;
+}
+
 #symbol-search::placeholder {
   color: #545454;
   font-family: 'Varela Round', sans-serif;
