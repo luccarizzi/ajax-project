@@ -83,11 +83,15 @@ section {
 #symbol-search {
   color: #fff;
   font-family: 'Varela Round', sans-serif;
+  text-transform: uppercase;
+  text-align: center;
 }
 
 #symbol-search::placeholder {
   color: #545454;
   font-family: 'Varela Round', sans-serif;
+  text-transform: capitalize;
+  text-align: center;
 }
 
 #symbol-submit {
