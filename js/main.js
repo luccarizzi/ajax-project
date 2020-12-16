@@ -9,6 +9,8 @@ $searchInput.addEventListener("blur", function(e) {
   $searchInput.setAttribute("placeholder", "Stock symbol");
 })
 
+var $closeButton = document.getElementById('close-modal-button');
+
 var symbol = "";
 var apiKey = 'JI3EUIMS58M4XZ08';
 
