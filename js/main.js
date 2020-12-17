@@ -60,4 +60,5 @@ function swapView (view) {
       $dataViewList[i].style.display = "none";
     }
   }
+  data.dataview = view;
 }
