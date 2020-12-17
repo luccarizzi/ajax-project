@@ -1,5 +1,6 @@
 /* exported data */
 
 var data = {
-  stocks: []
+  stocks: [],
+  data-view: ''
 }
