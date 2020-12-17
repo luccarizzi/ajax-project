@@ -46,8 +46,8 @@ document.addEventListener('submit', function (e) {
         dividendDate: request.DividendDate
       }
       stocks.push(stockInfo);
+      console.log(stockInfo);
       document.forms["search-symbol-form"].reset();
-      console.log(stocks)
     }
   })
   xhr.send();

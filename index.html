@@ -15,7 +15,6 @@
 
 </head>
 <body class="varela-round">
-
   <div id="close-modal" class="modal" style="display: none">
     <div class="modal-content flex flex-column align-center">
       <h2>This symbol does not exist</h2>
@@ -31,7 +30,6 @@
       value="Close">
     </div>
   </div>
-
   <header>
     <div class="container flex">
       <div class="logo">
@@ -46,14 +44,19 @@
   <main>
     <div class="container">
       <section>
+        <div class="column-1 font-white">
+          <h1 class="font-title">Search by stock symbol</h1>
+          <p class="subtitle">
+            Turtl allows you to search stocks by their symbol and save your favorite ones.
+            Use the search bar to find a stock.
+          </p>
+        </div>
         <form id="search-symbol-form" class="flex wrap justify-center symbol-form">
-
-          <label
+          <!-- <label
           class="column-1 text-center"
           for="symbol-search">
           Search by stock symbol
-          </label>
-
+          </label> -->
           <div class="search-box">
             <input
             id="symbol-search"
@@ -61,14 +64,12 @@
             type="text"
             placeholder="Stock symbol"
             required>
-
             <input
             id="symbol-submit"
             name="symbol-submit"
             type="submit"
             value="Go">
           </div>
-
         </form>
       </section>
     </div>

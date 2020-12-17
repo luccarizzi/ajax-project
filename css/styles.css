@@ -42,6 +42,20 @@ p {
   line-height: 1.5rem;
 }
 
+.font-white {
+  color: #ffffff;
+}
+
+.font-title {
+  font-size: 36px;
+}
+
+.subtitle {
+  font-size: 18px;
+  line-height: 32px;
+  text-align: justify;
+}
+
 /* semantic classes */
 
 .logo {
@@ -64,8 +78,8 @@ header {
   background-color: #007b25;
 }
 
-section {
-  margin: 4rem 0;
+.symbol-form {
+  margin: 2rem 0;
 }
 
 .symbol-form input {
