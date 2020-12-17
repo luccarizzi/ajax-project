@@ -4,14 +4,69 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AJAX Project</title>
+  <link
+    rel="stylesheet"
+    crossorigin="anonymous"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==">
   <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/layout.css">
 </head>
-<body>
+<body class="varela-round">
+  <div id="modal" class="modal" style="display: none">
+    <div class="modal-content flex flex-column align-center">
+      <h2>This symbol does not exist</h2>
+      <p>
+        Unfortuntately, the symbol you entered does not exist.
+        Please try again.
+      </p>
+      <input
+      id="close-modal-button"
+      class="close-modal-button"
+      name="close-modal-button"
+      type="submit"
+      value="Close">
+    </div>
+  </div>
   <header>
+    <div class="container flex">
+      <div class="logo">
+        <h1>turtl</h1>
+      </div>
+      <nav class="flex justify-around align-center">
+        <a href="#"><i class="fas fa-star"></i> Favorites</a>
+        <a href="#"><i class="fas fa-search"></i> Search</a>
+      </nav>
+    </div>
   </header>
   <main>
+    <div class="container">
+      <section>
+        <div class="column-1 font-white">
+          <h1 class="title">Search by stock symbol</h1>
+          <p class="subtitle">
+            Turtl allows you to search stocks by their symbol and save your favorite ones.
+            Use the search bar to find a stock.
+          </p>
+        </div>
+        <form id="search-symbol-form" class="flex wrap justify-center symbol-form">
+          <div class="search-box">
+            <input
+            id="symbol-search"
+            name="symbol-search"
+            type="text"
+            placeholder="Stock symbol"
+            required>
+            <input
+            id="symbol-submit"
+            name="symbol-submit"
+            type="submit"
+            value="Go">
+          </div>
+        </form>
+      </section>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
