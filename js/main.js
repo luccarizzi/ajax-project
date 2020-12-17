@@ -10,17 +10,15 @@ $searchInput.addEventListener("blur", function(e) {
 })
 
 var $closeButton = document.getElementById('close-modal-button');
-var $closeModal = document.getElementById('close-modal');
+var $modal = document.getElementById('modal');
 
 $closeButton.addEventListener('click', function(e) {
-  $closeModal.style.display = 'none';
+  $modal.style.display = 'none';
   document.forms["search-symbol-form"].reset();
 })
 
 var symbol = "";
 var apiKey = 'JI3EUIMS58M4XZ08';
-
-var request;
 
 document.addEventListener('submit', function (e) {
   e.preventDefault();
@@ -31,10 +29,10 @@ document.addEventListener('submit', function (e) {
   xhr.responseType = 'json';
 
   xhr.addEventListener('load', function (e) {
-    request = xhr.response;
+    var request = xhr.response;
 
     if (request.Symbol === undefined) {
-      $closeModal.style.display = 'flex';
+      $modal.style.display = 'flex';
     } else {
       var stockInfo = {
         symbol: request.Symbol,
@@ -46,7 +44,6 @@ document.addEventListener('submit', function (e) {
         dividendDate: request.DividendDate
       }
       stocks.push(stockInfo);
-      console.log(stockInfo);
       document.forms["search-symbol-form"].reset();
     }
   })
