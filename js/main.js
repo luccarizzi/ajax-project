@@ -49,3 +49,7 @@ document.addEventListener('submit', function (e) {
   })
   xhr.send();
 });
+
+function swapView (view) {
+
+}
