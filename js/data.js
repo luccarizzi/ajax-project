@@ -1,3 +1,5 @@
 /* exported data */
 
-var stocks = [];
+var data = {
+  stocks: []
+}
