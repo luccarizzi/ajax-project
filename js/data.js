@@ -2,5 +2,5 @@
 
 var data = {
   stocks: [],
-  data-view: ''
+  dataview: ''
 }
