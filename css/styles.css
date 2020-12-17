@@ -176,3 +176,37 @@ header {
 .close-modal-button:active {
   transform: translateY(1px);
 }
+
+.frame {
+  border: 1px solid red;
+}
+
+.detail-container {
+  margin: 2rem 0.5rem;
+  border-radius: 5px;
+  background-image: linear-gradient(135deg, #272727, #212121, #272727);
+  box-shadow: 1px 1px 3px #ffffff;
+}
+
+.detail-container div:first-child {
+  border-bottom: 1px solid #464646;
+}
+
+.symbol-title {
+  font-size: 36px;
+  margin: 0.5rem 0;
+  font-family: sans-serif;
+  color: #ebff19;
+  text-shadow: 1px 1px 1px #ffffff;
+}
+
+.tag {
+  color: #727272;
+  text-transform: lowercase;
+  font-style: italic;
+}
+
+.data {
+  color: #ffffff;
+  font-size: 2rem;
+}
