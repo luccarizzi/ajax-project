@@ -50,6 +50,8 @@ document.addEventListener('submit', function (e) {
   xhr.send();
 });
 
+var $dataViewList = document.querySelectorAll("[data-view]")
+
 function swapView (view) {
 
 }
