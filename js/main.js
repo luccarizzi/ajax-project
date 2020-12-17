@@ -53,5 +53,11 @@ document.addEventListener('submit', function (e) {
 var $dataViewList = document.querySelectorAll("[data-view]")
 
 function swapView (view) {
-
+  for (var i = 0; i < $dataViewList.length; i++) {
+    if ($dataViewList[i].dataset.view === view) {
+      $dataViewList[i].style.display = "";
+    } else {
+      $dataViewList[i].style.display = "none";
+    }
+  }
 }
