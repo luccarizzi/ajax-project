@@ -186,14 +186,14 @@ header {
   border: 1px solid red;
 }
 
-.detail-container {
+.search-detail-container {
   margin: 2rem 0.5rem;
   border-radius: 5px;
   background-image: linear-gradient(135deg, #272727, #212121, #272727);
   box-shadow: 1px 1px 3px #ffffff;
 }
 
-.detail-container div:first-child {
+.search-detail-container div:first-child {
   border-bottom: 1px solid #464646;
 }
 
