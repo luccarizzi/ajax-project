@@ -19,37 +19,55 @@ $closeButton.addEventListener('click', function(e) {
 
 var symbol = "";
 var apiKey = 'JI3EUIMS58M4XZ08';
+var requestOverview;
+var requestDaily;
+var stockInfo = {};
+var today = new Date();
+var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+var $shareData;
 
 document.addEventListener('submit', function (e) {
   e.preventDefault();
   symbol = document.forms["search-symbol-form"].elements["symbol-search"].value.toUpperCase();
 
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET','https://www.alphavantage.co/query?function=OVERVIEW&symbol=' + symbol + '&apikey=' + apiKey);
-  xhr.responseType = 'json';
+  var xhrOverview = new XMLHttpRequest();
+  xhrOverview.open('GET', 'https://www.alphavantage.co/query?function=OVERVIEW&symbol=' + symbol + '&apikey=' + apiKey);
+  xhrOverview.responseType = 'json';
 
-  xhr.addEventListener('load', function (e) {
-    var request = xhr.response;
+  xhrOverview.addEventListener('load', function (e) {
+    requestOverview = xhrOverview.response;
 
-    if (request.Symbol === undefined) {
+    if (requestOverview.Symbol === undefined) {
       $modal.style.display = 'flex';
     } else {
-      var stockInfo = {
-        symbol: request.Symbol,
-        name: request.Name,
-        industry: request.Industry,
-        country: request.Country,
-        dividendPerShare: request.DividendPerShare,
-        dividendYield: (100 * request.DividendYield).toFixed(2) + "%",
-        dividendDate: convertDate(request.DividendDate)
+      stockInfo = {
+        symbol: requestOverview.Symbol,
+        name: requestOverview.Name,
+        industry: requestOverview.Industry,
+        country: requestOverview.Country,
+        dividendPerShare: convertDividendPerShare(requestOverview),
+        dividendYield: convertDividendYield(requestOverview),
+        dividendDate: convertDate(requestOverview)
       }
-      console.log(stockInfo);
-      document.querySelector("[data-view=detail]").append(renderSearchDetail(stockInfo));
+      document.querySelector("[data-view=detail]").innerHTML = "";
+      document.querySelector("[data-view=detail]").prepend(renderSearchDetail(stockInfo));
       document.forms["search-symbol-form"].reset();
     }
-    console.log(request);
   })
-  xhr.send();
+  xhrOverview.send();
+
+  $shareData = document.getElementById("share-data");
+
+  var xhrDaily = new XMLHttpRequest();
+  xhrDaily.open('GET', 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=' + symbol + '&apikey=' + apiKey);
+  xhrDaily.responseType = 'json';
+
+  xhrDaily.addEventListener('load', function (e) {
+    requestDaily = xhrDaily.response;
+    // $shareData.value = "$" + requestDaily["Time Series (Daily)"][date]["5. adjusted close"];
+
+  })
+  xhrDaily.send();
 });
 
 var $dataViewList = document.querySelectorAll("[data-view]")
@@ -99,18 +117,23 @@ function renderSearchDetail(stockInfo) {
 
   var spanShareData = document.createElement("span");
   spanShareData.className = "data";
-  spanShareData.textContent = "$" + " TBD";
+  spanShareData.setAttribute("id", "share-data");
+  // spanShareData.textContent = "$" + " TBD";
 
   var pDivPerShare = document.createElement("p");
   var spanDivPerShareTag = document.createElement("span");
   spanDivPerShareTag.className = "tag";
-  spanDivPerShareTag.textContent = "$" + "dividend per share:"
+  spanDivPerShareTag.textContent = "dividend per share:"
 
   var brDivPerShare = document.createElement("br");
 
   var spanDivPerShareData = document.createElement("span");
-  spanDivPerShareData.className = "data";
-  spanDivPerShareData.textContent = "$" + (1 * stockInfo.dividendPerShare).toFixed(2);
+  if (stockInfo.dividendYield === "N/A") {
+    spanDivPerShareData.className = "data noDiv";
+  } else {
+    spanDivPerShareData.className = "data";
+  }
+  spanDivPerShareData.textContent = stockInfo.dividendPerShare;
 
   var pDivYield = document.createElement("p");
   var spanDivYieldTag = document.createElement("span");
@@ -120,18 +143,26 @@ function renderSearchDetail(stockInfo) {
   var brDivYield = document.createElement("br");
 
   var spanDivYieldData = document.createElement("span");
-  spanDivYieldData.className = "data";
+  if (stockInfo.dividendYield === "N/A") {
+    spanDivYieldData.className = "data noDiv";
+  } else {
+    spanDivYieldData.className = "data";
+  }
   spanDivYieldData.textContent = stockInfo.dividendYield;
 
   var pLastDivDate = document.createElement("p");
   var spanLastDivDateTag = document.createElement("span");
   spanLastDivDateTag.className = "tag";
-  spanLastDivDateTag.textContent = "last lividend date:";
+  spanLastDivDateTag.textContent = "last dividend date:";
 
   var brLastDivDate = document.createElement("br");
 
   var spanLastDivDateData = document.createElement("span");
-  spanLastDivDateData.className = "data";
+  if (stockInfo.dividendYield === "N/A") {
+    spanLastDivDateData.className = "data noDiv";
+  } else {
+    spanLastDivDateData.className = "data";
+  }
   spanLastDivDateData.textContent = stockInfo.dividendDate;
 
   var pCountry = document.createElement("p");
@@ -178,10 +209,31 @@ function renderSearchDetail(stockInfo) {
   return divSearchDetailContainer;
 }
 
-function convertDate (date) {
-  var splitDate = date.split("-");
-  var newDate = splitDate[1] + "/" + splitDate[2] + "/" + splitDate[0];
-  return newDate;
+function convertDate (request) {
+  if (requestOverview.DividendDate === "None" || requestOverview.ForwardAnnualDividendRate === "0") {
+    return "N/A";
+  } else {
+    var date = requestOverview.DividendDate;
+    var splitDate = date.split("-");
+    var newDate = splitDate[1] + "/" + splitDate[2] + "/" + splitDate[0];
+    return newDate;
+  }
 }
 
-// convertDate("2020/11/02");
+function convertDividendYield (request) {
+  if (requestOverview.ForwardAnnualDividendRate === "0") {
+    return "N/A";
+  } else {
+    var dividendYieldPercentage = (100 * requestOverview.ForwardAnnualDividendYield).toFixed(2) + "%";
+    return dividendYieldPercentage;
+  }
+}
+
+function convertDividendPerShare (request) {
+  if (requestOverview.ForwardAnnualDividendRate === "0") {
+    return "N/A";
+  } else {
+    var dividendPerShare = "$" + requestOverview.DividendPerShare;
+    return dividendPerShare;
+  }
+}
