@@ -19,55 +19,82 @@ $closeButton.addEventListener('click', function(e) {
 
 var symbol = "";
 var apiKey = 'JI3EUIMS58M4XZ08';
-var requestOverview;
-var requestDaily;
+var apiRequest;
 var stockInfo = {};
-var today = new Date();
-var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-var $shareData;
 
 document.addEventListener('submit', function (e) {
   e.preventDefault();
   symbol = document.forms["search-symbol-form"].elements["symbol-search"].value.toUpperCase();
 
-  var xhrOverview = new XMLHttpRequest();
-  xhrOverview.open('GET', 'https://www.alphavantage.co/query?function=OVERVIEW&symbol=' + symbol + '&apikey=' + apiKey);
-  xhrOverview.responseType = 'json';
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=' + symbol + '&outputsize=full&apikey=' + apiKey);
+  xhr.responseType = 'json';
 
-  xhrOverview.addEventListener('load', function (e) {
-    requestOverview = xhrOverview.response;
+  xhr.addEventListener('load', function (e) {
+    apiRequest = xhr.response;
 
-    if (requestOverview.Symbol === undefined) {
+    if (apiRequest["Meta Data"] === undefined) {
       $modal.style.display = 'flex';
     } else {
-      stockInfo = {
-        symbol: requestOverview.Symbol,
-        name: requestOverview.Name,
-        industry: requestOverview.Industry,
-        country: requestOverview.Country,
-        dividendPerShare: convertDividendPerShare(requestOverview),
-        dividendYield: convertDividendYield(requestOverview),
-        dividendDate: convertDate(requestOverview)
+
+      var shareName = apiRequest["Meta Data"]["2. Symbol"];
+      var request = apiRequest['Time Series (Daily)'];
+      var dividendPerShare = 0;
+      var dividendPay = 0;
+      var annualPaymentRate = 0;
+      var adjustedClose = 0;
+      var dividendHistory = [];
+      var dividendExDate = dividendHistory[0];
+
+      for (var day in request) {
+        if (request[day]['7. dividend amount'] !== "0.0000") {
+          dividendHistory.push(day);
+        }
+        if (dividendHistory.length === 0) {
+          dividendExDate = "N/A"
+        } else {
+          var divDate = dividendHistory[0];
+          var splitDate = divDate.split("-");
+          dividendExDate = splitDate[1] + "/" + splitDate[2] + "/" + splitDate[0];
+        }
       }
-      document.querySelector("[data-view=detail]").innerHTML = "";
-      document.querySelector("[data-view=detail]").prepend(renderSearchDetail(stockInfo));
-      document.forms["search-symbol-form"].reset();
+
+      for (var i = 251; i > 0; i--) {
+        var date = Object.keys(request)[i];
+        if (request[date]['7. dividend amount'] !== "0.0000") {
+          dividendPerShare += Number(request[date]['7. dividend amount']);
+          dividendPay = Number(request[date]['7. dividend amount'])
+          annualPaymentRate++;
+        }
+        adjustedClose = Number(request[date]["5. adjusted close"]);
+      }
+
+      var dividendYield = (dividendPerShare / adjustedClose * 100).toFixed(2);
+
+      // console.log('dividendPerShare:', Number(dividendPerShare.toFixed(2)));
+      // console.log('dividendPay:', Number(dividendPay.toFixed(2)));
+      // console.log('annualPaymentRate:', annualPaymentRate);
+      // console.log('dividendExDate:', dividendExDate);
+      // console.log('adjustedClose:', adjustedClose);
+      // console.log('dividendYield:', Number(dividendYield));
+
+      stockInfo = {
+        name: shareName,
+        share: adjustedClose,
+        dividendPerShare: Number(dividendPerShare.toFixed(2)),
+        dividendYield: Number(dividendYield),
+        dividendDate: dividendExDate,
+        dividendPayment: Number(dividendPay.toFixed(2)),
+        annualPaymentRate: annualPaymentRate
+      }
     }
-  })
-  xhrOverview.send();
 
-  $shareData = document.getElementById("share-data");
-
-  var xhrDaily = new XMLHttpRequest();
-  xhrDaily.open('GET', 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=' + symbol + '&apikey=' + apiKey);
-  xhrDaily.responseType = 'json';
-
-  xhrDaily.addEventListener('load', function (e) {
-    requestDaily = xhrDaily.response;
-    // $shareData.value = "$" + requestDaily["Time Series (Daily)"][date]["5. adjusted close"];
+    document.querySelector("[data-view=detail]").innerHTML = "";
+    document.querySelector("[data-view=detail]").prepend(renderSearchDetail(stockInfo));
+    document.forms["search-symbol-form"].reset();
 
   })
-  xhrDaily.send();
+  xhr.send();
 });
 
 var $dataViewList = document.querySelectorAll("[data-view]")
@@ -82,16 +109,6 @@ function swapView (view) {
   }
   data.dataview = view;
 }
-
-// var stockInfo = {
-//   symbol: 'T',
-//   name: 'AT&T Inc',
-//   industry: 'Telecom Services',
-//   country: 'USA',
-//   dividendPerShare: '2.08',
-//   dividendYield: '0.068',
-//   dividendDate: '2020/11/02'
-// }
 
 function renderSearchDetail(stockInfo) {
 
@@ -118,7 +135,23 @@ function renderSearchDetail(stockInfo) {
   var spanShareData = document.createElement("span");
   spanShareData.className = "data";
   spanShareData.setAttribute("id", "share-data");
-  // spanShareData.textContent = "$" + " TBD";
+  spanShareData.textContent = "$" + stockInfo.share;
+
+  var pDivYield = document.createElement("p");
+  var spanDivYieldTag = document.createElement("span");
+  spanDivYieldTag.className = "tag";
+  spanDivYieldTag.textContent = "approx. dividend yield:"
+
+  var brDivYield = document.createElement("br");
+
+  var spanDivYieldData = document.createElement("span");
+  // if (stockInfo.dividendYield === "N/A") {
+  //   spanDivYieldData.className = "data noDiv";
+  // } else {
+  //   spanDivYieldData.className = "data";
+  // }
+  spanDivYieldData.className = "data";
+  spanDivYieldData.textContent = stockInfo.dividendYield + '%';
 
   var pDivPerShare = document.createElement("p");
   var spanDivPerShareTag = document.createElement("span");
@@ -128,27 +161,35 @@ function renderSearchDetail(stockInfo) {
   var brDivPerShare = document.createElement("br");
 
   var spanDivPerShareData = document.createElement("span");
-  if (stockInfo.dividendYield === "N/A") {
-    spanDivPerShareData.className = "data noDiv";
-  } else {
-    spanDivPerShareData.className = "data";
-  }
-  spanDivPerShareData.textContent = stockInfo.dividendPerShare;
+  // if (stockInfo.dividendYield === "N/A") {
+  //   spanDivPerShareData.className = "data noDiv";
+  // } else {
+  //   spanDivPerShareData.className = "data";
+  // }
+  spanDivPerShareData.className = "data";
+  spanDivPerShareData.textContent = '$' + stockInfo.dividendPerShare;
 
-  var pDivYield = document.createElement("p");
-  var spanDivYieldTag = document.createElement("span");
-  spanDivYieldTag.className = "tag";
-  spanDivYieldTag.textContent = "dividend yield:"
+  var pDivPayment = document.createElement("p");
+  var spanDivPaymentTag = document.createElement("span");
+  spanDivPaymentTag.className = "tag";
+  spanDivPaymentTag.textContent = "dividend payment";
 
-  var brDivYield = document.createElement("br");
+  var brDivPayment = document.createElement("br");
 
-  var spanDivYieldData = document.createElement("span");
-  if (stockInfo.dividendYield === "N/A") {
-    spanDivYieldData.className = "data noDiv";
-  } else {
-    spanDivYieldData.className = "data";
-  }
-  spanDivYieldData.textContent = stockInfo.dividendYield;
+  var spanDivPaymentData = document.createElement("span");
+  spanDivPaymentData.className = "data";
+  spanDivPaymentData.textContent = '$' + stockInfo.dividendPayment;
+
+  var pFrequency = document.createElement("p");
+  var spanFrequencyTag = document.createElement("span");
+  spanFrequencyTag.className = "tag";
+  spanFrequencyTag.textContent = "dividend frequency";
+
+  var brFrequency = document.createElement("br");
+
+  var spanFrequencyData = document.createElement("span");
+  spanFrequencyData.className = "data";
+  spanFrequencyData.textContent = stockInfo.annualPaymentRate + ' time(s) per year';
 
   var pLastDivDate = document.createElement("p");
   var spanLastDivDateTag = document.createElement("span");
@@ -165,28 +206,6 @@ function renderSearchDetail(stockInfo) {
   }
   spanLastDivDateData.textContent = stockInfo.dividendDate;
 
-  var pCountry = document.createElement("p");
-  var spanCountryTag = document.createElement("span");
-  spanCountryTag.className = "tag";
-  spanCountryTag.textContent = "country";
-
-  var brCountry = document.createElement("br");
-
-  var spanCountryData = document.createElement("span");
-  spanCountryData.className = "data";
-  spanCountryData.textContent = stockInfo.country;
-
-  var pIndustry = document.createElement("p");
-  var spanIndustryTag = document.createElement("span");
-  spanIndustryTag.className = "tag";
-  spanIndustryTag.textContent = "industry";
-
-  var brIndustry = document.createElement("br");
-
-  var spanIndustryData = document.createElement("span");
-  spanIndustryData.className = "data";
-  spanIndustryData.textContent = stockInfo.industry;
-
   var divButton = document.createElement("div");
   divButton.className = "flex justify-center";
 
@@ -197,43 +216,33 @@ function renderSearchDetail(stockInfo) {
 
   divSearchDetailContainer.append(divTitle, divInfo);
   divTitle.append(h1Title);
-  divInfo.append(pShare, pDivPerShare, pDivYield, pLastDivDate, pCountry, pIndustry, divButton);
+  divInfo.append(pShare, pDivYield, pDivPerShare, pDivPayment, pFrequency, pLastDivDate, divButton);
   pShare.append(spanShareTag, brShare, spanShareData);
-  pDivPerShare.append(spanDivPerShareTag, brDivPerShare, spanDivPerShareData);
   pDivYield.append(spanDivYieldTag, brDivYield, spanDivYieldData);
+  pDivPerShare.append(spanDivPerShareTag, brDivPerShare, spanDivPerShareData);
+  pDivPayment.append(spanDivPaymentTag, brDivPayment, spanDivPaymentData);
+  pFrequency.append(spanFrequencyTag, brFrequency, spanFrequencyData);
   pLastDivDate.append(spanLastDivDateTag, brLastDivDate, spanLastDivDateData);
-  pCountry.append(spanCountryTag, brCountry, spanCountryData);
-  pIndustry.append(spanIndustryTag, brIndustry, spanIndustryData);
+
   divButton.append(aButton);
 
   return divSearchDetailContainer;
 }
 
-function convertDate (request) {
-  if (requestOverview.DividendDate === "None" || requestOverview.ForwardAnnualDividendRate === "0") {
-    return "N/A";
-  } else {
-    var date = requestOverview.DividendDate;
-    var splitDate = date.split("-");
-    var newDate = splitDate[1] + "/" + splitDate[2] + "/" + splitDate[0];
-    return newDate;
-  }
-}
+// function convertDividendYield (request) {
+//   if (requestOverview.ForwardAnnualDividendRate === "0") {
+//     return "N/A";
+//   } else {
+//     var dividendYieldPercentage = (100 * requestOverview.ForwardAnnualDividendYield).toFixed(2) + "%";
+//     return dividendYieldPercentage;
+//   }
+// }
 
-function convertDividendYield (request) {
-  if (requestOverview.ForwardAnnualDividendRate === "0") {
-    return "N/A";
-  } else {
-    var dividendYieldPercentage = (100 * requestOverview.ForwardAnnualDividendYield).toFixed(2) + "%";
-    return dividendYieldPercentage;
-  }
-}
-
-function convertDividendPerShare (request) {
-  if (requestOverview.ForwardAnnualDividendRate === "0") {
-    return "N/A";
-  } else {
-    var dividendPerShare = "$" + requestOverview.DividendPerShare;
-    return dividendPerShare;
-  }
-}
+// function convertDividendPerShare (request) {
+//   if (requestOverview.ForwardAnnualDividendRate === "0") {
+//     return "N/A";
+//   } else {
+//     var dividendPerShare = "$" + requestOverview.DividendPerShare;
+//     return dividendPerShare;
+//   }
+// }

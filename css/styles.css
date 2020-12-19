@@ -182,10 +182,6 @@ header {
   transform: translateY(1px);
 }
 
-.frame {
-  border: 1px solid red;
-}
-
 .search-detail-container {
   margin: 2rem 0.5rem;
   border-radius: 5px;
