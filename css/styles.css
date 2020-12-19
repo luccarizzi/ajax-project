@@ -1,3 +1,4 @@
+
 /* utility classes */
 
 @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Varela+Round&display=swap');
@@ -126,10 +127,7 @@ header {
   font-family: 'Varela Round', sans-serif;
 }
 
-#symbol-submit:focus {
-  color: #ff5a40;
-}
-
+#symbol-submit:focus,
 #symbol-submit:hover {
   color: #ff5a40;
 }
@@ -198,7 +196,6 @@ header {
   margin: 0.5rem 1rem;
   font-family: sans-serif;
   color: #ffffff;
-  /* text-shadow: 4px 4px 5px #162EAE; */
 }
 
 .tag {
