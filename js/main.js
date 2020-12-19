@@ -232,7 +232,7 @@ function renderSearchDetail(stockInfo) {
 
 document.addEventListener('click', function(e) {
   if (e.target.id === 'add-to-favorite-button') {
-
+    data.stocks.push(stockInfo);
   }
 })
 
