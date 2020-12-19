@@ -80,19 +80,17 @@ document.addEventListener('submit', function (e) {
 
       stockInfo = {
         name: shareName,
-        share: adjustedClose,
-        dividendPerShare: Number(dividendPerShare.toFixed(2)),
-        dividendYield: Number(dividendYield),
+        share: adjustedClose.toFixed(2),
+        dividendPerShare: dividendPerShare.toFixed(2),
+        dividendYield: dividendYield,
         dividendDate: dividendExDate,
-        dividendPayment: Number(dividendPay.toFixed(2)),
+        dividendPayment: dividendPay.toFixed(2),
         annualPaymentRate: annualPaymentRate
       }
     }
-
     document.querySelector("[data-view=detail]").innerHTML = "";
     document.querySelector("[data-view=detail]").prepend(renderSearchDetail(stockInfo));
     document.forms["search-symbol-form"].reset();
-
   })
   xhr.send();
 });
@@ -145,12 +143,12 @@ function renderSearchDetail(stockInfo) {
   var brDivYield = document.createElement("br");
 
   var spanDivYieldData = document.createElement("span");
-  // if (stockInfo.dividendYield === "N/A") {
-  //   spanDivYieldData.className = "data noDiv";
-  // } else {
-  //   spanDivYieldData.className = "data";
-  // }
-  spanDivYieldData.className = "data";
+  if (stockInfo.dividendYield === "N/A" || stockInfo.dividendYield === '0.00') {
+    spanDivYieldData.className = "data noDiv";
+  } else {
+    spanDivYieldData.className = "data";
+  }
+  // spanDivYieldData.className = "data";
   spanDivYieldData.textContent = stockInfo.dividendYield + '%';
 
   var pDivPerShare = document.createElement("p");
@@ -161,12 +159,12 @@ function renderSearchDetail(stockInfo) {
   var brDivPerShare = document.createElement("br");
 
   var spanDivPerShareData = document.createElement("span");
-  // if (stockInfo.dividendYield === "N/A") {
-  //   spanDivPerShareData.className = "data noDiv";
-  // } else {
-  //   spanDivPerShareData.className = "data";
-  // }
-  spanDivPerShareData.className = "data";
+  if (stockInfo.dividendPerShare === "N/A" || stockInfo.dividendPerShare === "0.00") {
+    spanDivPerShareData.className = "data noDiv";
+  } else {
+    spanDivPerShareData.className = "data";
+  }
+  // spanDivPerShareData.className = "data";
   spanDivPerShareData.textContent = '$' + stockInfo.dividendPerShare;
 
   var pDivPayment = document.createElement("p");
@@ -177,7 +175,11 @@ function renderSearchDetail(stockInfo) {
   var brDivPayment = document.createElement("br");
 
   var spanDivPaymentData = document.createElement("span");
-  spanDivPaymentData.className = "data";
+  if (stockInfo.dividendPayment === "N/A" || stockInfo.dividendPayment === "0.00") {
+    spanDivPaymentData.className = "data noDiv";
+  } else {
+    spanDivPaymentData.className = "data";
+  }
   spanDivPaymentData.textContent = '$' + stockInfo.dividendPayment;
 
   var pFrequency = document.createElement("p");
@@ -188,8 +190,12 @@ function renderSearchDetail(stockInfo) {
   var brFrequency = document.createElement("br");
 
   var spanFrequencyData = document.createElement("span");
-  spanFrequencyData.className = "data";
-  spanFrequencyData.textContent = stockInfo.annualPaymentRate + ' time(s) per year';
+  if (stockInfo.annualPaymentRate === "N/A" || stockInfo.annualPaymentRate === 0) {
+    spanFrequencyData.className = "data noDiv";
+  } else {
+    spanFrequencyData.className = "data";
+  }
+  spanFrequencyData.textContent = annualFreqConverter(stockInfo.annualPaymentRate);
 
   var pLastDivDate = document.createElement("p");
   var spanLastDivDateTag = document.createElement("span");
@@ -199,7 +205,7 @@ function renderSearchDetail(stockInfo) {
   var brLastDivDate = document.createElement("br");
 
   var spanLastDivDateData = document.createElement("span");
-  if (stockInfo.dividendYield === "N/A") {
+  if (stockInfo.dividendDate === "N/A" || stockInfo.dividendDate === 0) {
     spanLastDivDateData.className = "data noDiv";
   } else {
     spanLastDivDateData.className = "data";
@@ -212,7 +218,8 @@ function renderSearchDetail(stockInfo) {
   var aButton = document.createElement("a");
   aButton.className = "save-button";
   aButton.setAttribute("href", "#");
-  aButton.setAttribute("id", "add-to-favorite-button");
+  aButton.setAttribute('id', 'add-to-favorite-button');
+  aButton.setAttribute('onclick', 'this.blur()');
   aButton.textContent = "Add to Favorites";
 
   divSearchDetailContainer.append(divTitle, divInfo);
@@ -232,7 +239,7 @@ function renderSearchDetail(stockInfo) {
 
 document.addEventListener('click', function(e) {
   if (e.target.id === 'add-to-favorite-button') {
-    data.stocks.push(stockInfo);
+    data.stocks.unshift(stockInfo);
   }
 })
 
@@ -253,3 +260,15 @@ document.addEventListener('click', function(e) {
 //     return dividendPerShare;
 //   }
 // }
+
+function annualFreqConverter(freq) {
+  if (freq === 1) {
+    return "annually";
+  } else if (freq === 4) {
+    return "quarterly"
+  } else if (freq === 12) {
+    return "monthly"
+  } else {
+    return freq + ' times per year';
+  }
+}
