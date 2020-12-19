@@ -230,6 +230,12 @@ function renderSearchDetail(stockInfo) {
   return divSearchDetailContainer;
 }
 
+document.addEventListener('click', function(e) {
+  if (e.target.id === 'add-to-favorite-button') {
+
+  }
+})
+
 // function convertDividendYield (request) {
 //   if (requestOverview.ForwardAnnualDividendRate === "0") {
 //     return "N/A";
