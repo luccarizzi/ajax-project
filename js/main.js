@@ -212,6 +212,7 @@ function renderSearchDetail(stockInfo) {
   var aButton = document.createElement("a");
   aButton.className = "save-button";
   aButton.setAttribute("href", "#");
+  aButton.setAttribute("id", "add-to-favorite-button");
   aButton.textContent = "Add to Favorites";
 
   divSearchDetailContainer.append(divTitle, divInfo);
