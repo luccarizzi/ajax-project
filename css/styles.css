@@ -48,7 +48,7 @@ p {
 }
 
 .font-white {
-  color: #ffffff;
+  color: #fff;
 }
 
 .title {
@@ -134,7 +134,7 @@ header {
 
 .modal {
   position: fixed;
-  background: rgba(0, 0, 0, .6);
+  background: rgba(0, 0, 0, 0.6);
   top: 0;
   left: 0;
   right: 0;
@@ -149,10 +149,10 @@ header {
 .modal-content {
   width: 450px;
   max-width: 100%;
-  background-color: #ffffff;
+  background-color: #fff;
   border-radius: 1rem;
   padding: 1rem;
-  box-shadow: 1px 1px 7px #ffffff;
+  box-shadow: 1px 1px 7px #fff;
 }
 
 .close-modal-button {
@@ -160,7 +160,7 @@ header {
   outline: none;
   border: none;
   background-color: #ca4632;
-  color: #ffffff;
+  color: #fff;
   padding: 0.5rem;
   border-radius: 1rem;
   align-self: flex-end;
@@ -171,20 +171,16 @@ header {
 
 .close-modal-button:focus,
 .close-modal-button:hover {
-  background-color: #A61700;
-  box-shadow: 1px 1px 2px #A61700;
+  background-color: #a61700;
+  box-shadow: 1px 1px 2px #a61700;
 }
 
-.save-button:active,
-.close-modal-button:active {
-  transform: translateY(1px);
-}
-
+.list-container,
 .search-detail-container {
   margin: 2rem 0.5rem;
   border-radius: 5px;
   background-image: linear-gradient(135deg, #272727, #212121, #272727);
-  box-shadow: 1px 1px 3px #ffffff;
+  box-shadow: 1px 1px 3px #fff;
 }
 
 .search-detail-container div:first-child {
@@ -195,7 +191,7 @@ header {
   font-size: 36px;
   margin: 0.5rem 1rem;
   font-family: sans-serif;
-  color: #ffffff;
+  color: #fff;
 }
 
 .tag {
@@ -206,20 +202,20 @@ header {
 }
 
 .data {
-  color: #ffffff;
+  color: #fff;
   font-size: 2rem;
   margin-left: 1rem;
 }
 
 .save-button {
   outline: none;
-  background-color: #238D43;
-  color: #ffffff;
+  background-color: #238d43;
+  color: #fff;
   padding: 0.5rem 2rem;
   border-radius: 1rem;
   font-size: 1.4rem;
   font-family: 'Varela Round', sans-serif;
-  box-shadow: 1px 1px 2px #007B25;
+  box-shadow: 1px 1px 2px #007b25;
   margin-bottom: 1rem;
 }
 
@@ -231,4 +227,9 @@ header {
 
 .noDiv {
   color: #bc2a2a;
+}
+
+.save-button:active,
+.close-modal-button:active {
+  transform: translateY(1px);
 }
