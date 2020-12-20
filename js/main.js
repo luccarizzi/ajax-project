@@ -95,19 +95,6 @@ document.addEventListener('submit', function (e) {
   xhr.send();
 });
 
-var $dataViewList = document.querySelectorAll("[data-view]")
-
-function swapView (view) {
-  for (var i = 0; i < $dataViewList.length; i++) {
-    if ($dataViewList[i].dataset.view === view) {
-      $dataViewList[i].style.display = "";
-    } else {
-      $dataViewList[i].style.display = "none";
-    }
-  }
-  data.dataview = view;
-}
-
 function renderSearchDetail(stockInfo) {
 
   var divSearchDetailContainer = document.createElement("div");
@@ -235,12 +222,25 @@ function renderSearchDetail(stockInfo) {
   return divSearchDetailContainer;
 }
 
+var $dataViewList = document.querySelectorAll("section[data-view]")
+
+function swapView(view) {
+  for (var i = 0; i < $dataViewList.length; i++) {
+    if ($dataViewList[i].dataset.view === view) {
+      $dataViewList[i].style.display = "";
+    } else {
+      $dataViewList[i].style.display = "none";
+    }
+  }
+  data.dataview = view;
+}
+
 document.addEventListener('click', function(e) {
   if (e.target.id === 'add-to-favorite-button') {
     data.stocks.unshift(stockInfo);
   }
   if (e.target.parentNode = "NAV") {
-    console.log("Nav clicked.")
+    swapView(e.target.dataset.view);
   }
 })
 
