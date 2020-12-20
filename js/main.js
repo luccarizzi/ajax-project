@@ -148,7 +148,6 @@ function renderSearchDetail(stockInfo) {
   } else {
     spanDivYieldData.className = "data";
   }
-  // spanDivYieldData.className = "data";
   spanDivYieldData.textContent = stockInfo.dividendYield + '%';
 
   var pDivPerShare = document.createElement("p");
@@ -164,7 +163,6 @@ function renderSearchDetail(stockInfo) {
   } else {
     spanDivPerShareData.className = "data";
   }
-  // spanDivPerShareData.className = "data";
   spanDivPerShareData.textContent = '$' + stockInfo.dividendPerShare;
 
   var pDivPayment = document.createElement("p");
@@ -241,25 +239,10 @@ document.addEventListener('click', function(e) {
   if (e.target.id === 'add-to-favorite-button') {
     data.stocks.unshift(stockInfo);
   }
+  if (e.target.parentNode = "NAV") {
+    console.log("Nav clicked.")
+  }
 })
-
-// function convertDividendYield (request) {
-//   if (requestOverview.ForwardAnnualDividendRate === "0") {
-//     return "N/A";
-//   } else {
-//     var dividendYieldPercentage = (100 * requestOverview.ForwardAnnualDividendYield).toFixed(2) + "%";
-//     return dividendYieldPercentage;
-//   }
-// }
-
-// function convertDividendPerShare (request) {
-//   if (requestOverview.ForwardAnnualDividendRate === "0") {
-//     return "N/A";
-//   } else {
-//     var dividendPerShare = "$" + requestOverview.DividendPerShare;
-//     return dividendPerShare;
-//   }
-// }
 
 function annualFreqConverter(freq) {
   if (freq === 1) {
