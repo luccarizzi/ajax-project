@@ -251,6 +251,7 @@ header {
 .break-text p {
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 24px;
 }
 
 .list-button {
@@ -261,13 +262,20 @@ header {
   font-size: 20px;
   width: 36px;
   height: 36px;
-  margin-right: 10px;
 }
 
 .list-remove-button {
-  background: white;
+  background-color: #4a79fd;
 }
 
 .list-detail-button {
-  background: white;
+  background-color: #ec5f5f;
+}
+
+.list-line:not(:last-child) {
+  border-bottom: 1px solid #444;
+}
+
+.a-margin {
+  margin-right: 10px;
 }

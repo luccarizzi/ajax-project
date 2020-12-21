@@ -218,29 +218,28 @@ function renderSearchDetail(stockInfo) {
 
 function renderFavorites() {
 
-  //  <div class="list-container">
-  //    <div class="flex font-white justify-between">
-  //      <div class="column-3 break-text">
-  //        <p>stock</p>
-  //      </div>
-  //      <div class="flex align-center">
-  //        <div class="list-button list-detail-button">
-  //          <a href="#"><i class="font-black fas fa-ellipsis-v"></i></a>
-  //        </div>
-  //        <div class="list-button list-remove-button">
-  //          <a href="#"><i class="font-black fas fa-trash-alt"></i></a>
-  //        </div>
-  //      </div>
-  //      +++
-  //    </div>
-  //  </div>
+  var div = document.createElement('div');
 
   var divListContainer = document.createElement('div');
   divListContainer.className = 'list-container';
 
+  var divHeader = document.createElement('div');
+  divHeader.className = 'column-1 font-white text-center';
+
+  var h1Title = document.createElement('h1');
+  h1Title.className = 'title';
+  h1Title.textContent = 'Favorite Stocks List';
+
+  var pSubtitle = document.createElement('p');
+  pSubtitle.className = 'subtitle';
+  pSubtitle.textContent = 'Save your favorite stocks and keep track of your investments.';
+
+  div.append(divHeader, divListContainer);
+  divHeader.append(h1Title, pSubtitle);
+
   for (var i = 0; i < data.stocks.length; i++) {
     var divTitle = document.createElement('div');
-    divTitle.className = 'flex font-white justify-between';
+    divTitle.className = 'flex font-white justify-between list-line';
 
     var divStock = document.createElement('div');
     divStock.className = 'column-3 break-text';
@@ -251,35 +250,39 @@ function renderFavorites() {
     var divButtons = document.createElement('div');
     divButtons.className = 'flex align-center';
 
+    var aDetail = document.createElement('a');
+    aDetail.setAttribute('href', '#');
+    aDetail.className = 'a-margin';
+
     var divDetailButton = document.createElement('div');
     divDetailButton.className = 'list-button list-remove-button';
 
-    var aDetail = document.createElement('a');
-    aDetail.setAttribute('href', '#');
-
     var iDetail = document.createElement('i');
-    iDetail.className = 'font-black fas fa-ellipsis-v';
+    iDetail.className = 'fas fa-bars';
+
+    var aTrash = document.createElement('a');
+    aTrash.setAttribute('href', '#');
+    aTrash.className = 'a-margin';
 
     var divTrashButton = document.createElement('div');
     divTrashButton.className = 'list-button list-detail-button';
 
-    var aTrash = document.createElement('a');
-    aTrash.setAttribute('href', '#');
-
     var iTrash = document.createElement('i');
-    iTrash.className = 'font-black fas fa-trash-alt';
+    iTrash.className = 'fas fa-trash-alt';
 
     divListContainer.append(divTitle);
     divTitle.append(divStock, divButtons);
     divStock.append(pStock);
-    divButtons.append(divDetailButton, divTrashButton);
-    divDetailButton.append(aDetail);
-    aDetail.append(iDetail);
-    divTrashButton.append(aTrash);
-    aTrash.append(iTrash);
+    divButtons.append(aDetail, aTrash);
+
+    aDetail.append(divDetailButton);
+    divDetailButton.append(iDetail);
+
+    aTrash.append(divTrashButton);
+    divTrashButton.append(iTrash);
   }
 
-  return divListContainer;
+  return div;
 }
 
 var $dataViewList = document.querySelectorAll('section[data-view]');
