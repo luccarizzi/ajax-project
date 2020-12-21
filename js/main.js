@@ -216,7 +216,7 @@ function renderSearchDetail(stockInfo) {
   return divSearchDetailContainer;
 }
 
-function renderFavorites () {
+function renderFavorites() {
 
   //  <div class="list-container">
   //    <div class="flex font-white justify-between">
@@ -295,12 +295,17 @@ function swapView(view) {
   data.dataview = view;
 }
 
+var $section = document.querySelector('section[data-view="favorite"]');
+
 document.addEventListener('click', function (e) {
   if (e.target.id === 'add-to-favorite-button') {
     data.stocks.unshift(stockInfo);
   }
   if (e.target.parentNode.tagName === 'NAV') {
     swapView(e.target.dataset.view);
+    if (e.target.dataset.view === 'favorite') {
+      $section.append(renderFavorites());
+    }
   }
 });
 
