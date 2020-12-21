@@ -304,6 +304,7 @@ document.addEventListener('click', function (e) {
   if (e.target.parentNode.tagName === 'NAV') {
     swapView(e.target.dataset.view);
     if (e.target.dataset.view === 'favorite') {
+      $section.innerHTML = '';
       $section.append(renderFavorites());
     }
   }
