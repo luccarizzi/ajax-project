@@ -255,7 +255,7 @@ function renderFavorites() {
     aDetail.className = 'a-margin';
 
     var divDetailButton = document.createElement('div');
-    divDetailButton.className = 'list-button list-remove-button';
+    divDetailButton.className = 'list-button list-detail-button';
 
     var iDetail = document.createElement('i');
     iDetail.className = 'fas fa-bars';
@@ -265,7 +265,7 @@ function renderFavorites() {
     aTrash.className = 'a-margin';
 
     var divTrashButton = document.createElement('div');
-    divTrashButton.className = 'list-button list-detail-button';
+    divTrashButton.className = 'list-button list-remove-button';
 
     var iTrash = document.createElement('i');
     iTrash.className = 'fas fa-trash-alt';
@@ -324,3 +324,12 @@ function annualFreqConverter(freq) {
     return freq + ' times per year';
   }
 }
+
+document.addEventListener('click', function(e) {
+  if (e.target.className === 'fas fa-trash-alt') {
+    console.log(e.target.parentNode.parentNode.parentNode.parentNode);
+  } else if (e.target.className === 'list-button list-remove-button') {
+    console.log(e.target.parentNode.parentNode.parentNode)
+  }
+
+})

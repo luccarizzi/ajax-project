@@ -265,11 +265,11 @@ header {
 }
 
 .list-remove-button {
-  background-color: #4a79fd;
+  background-color: #ec5f5f;
 }
 
 .list-detail-button {
-  background-color: #ec5f5f;
+  background-color: #4a79fd;
 }
 
 .list-line:not(:last-child) {
