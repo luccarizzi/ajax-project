@@ -326,10 +326,12 @@ function annualFreqConverter(freq) {
 }
 
 document.addEventListener('click', function(e) {
-  if (e.target.className === 'fas fa-trash-alt') {
-    console.log(e.target.parentNode.parentNode.parentNode.parentNode);
-  } else if (e.target.className === 'list-button list-remove-button') {
-    console.log(e.target.parentNode.parentNode.parentNode)
+  if (e.target.className === 'fas fa-trash-alt' || e.target.className === 'list-button list-remove-button') {
+    var toBeRemoved = e.target.closest('div.list-line').firstElementChild.textContent;
+    for (var i = 0; i < data.stocks.length; i++) {
+      if (data.stocks[i].name === toBeRemoved) {
+        console.log('stock to be removed:', toBeRemoved);
+      }
+    }
   }
-
 })
