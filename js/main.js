@@ -254,7 +254,7 @@ function renderFavorites() {
 
       var aDetail = document.createElement('a');
       aDetail.setAttribute('href', '#');
-      aDetail.className = 'a-margin';
+      aDetail.className = 'list-button-margin';
 
       var divDetailButton = document.createElement('div');
       divDetailButton.className = 'list-button list-detail-button';
@@ -264,7 +264,7 @@ function renderFavorites() {
 
       var aTrash = document.createElement('a');
       aTrash.setAttribute('href', '#');
-      aTrash.className = 'a-margin';
+      aTrash.className = 'list-button-margin';
 
       var divTrashButton = document.createElement('div');
       divTrashButton.className = 'list-button list-remove-button';
