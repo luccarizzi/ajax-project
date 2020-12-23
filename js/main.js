@@ -316,8 +316,11 @@ var $addedModal = document.getElementById('added-modal');
 document.addEventListener('click', function (e) {
   if (e.target.id === 'add-to-favorite-button') {
     data.stocks.unshift(stockInfo);
-    console.log('added stock');
     $addedModal.style.display = "flex";
+    var addedStockTimer = setInterval(function timerOneSec() {
+      $addedModal.style.display = "none";
+      clearInterval(addedStockTimer);
+    }, 2000);
   }
   if (e.target.parentNode.tagName === 'NAV') {
     swapView(e.target.dataset.view);
