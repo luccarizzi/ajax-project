@@ -14,8 +14,8 @@
   <link rel="stylesheet" href="css/layout.css">
 </head>
 <body class="varela-round">
-  <div id="modal" class="modal" style="display: none">
-    <div class="modal-content flex flex-column align-center">
+  <div id="close-modal" class="close-modal" style="display: none">
+    <div class="close-modal-content flex flex-column align-center">
       <h2>This symbol does not exist</h2>
       <p>
         Unfortuntately, the symbol you entered does not exist.
@@ -27,6 +27,14 @@
       name="close-modal-button"
       type="submit"
       value="Close">
+    </div>
+  </div>
+  <div id="added-modal" class="added-modal" style="display: flex">
+    <div class="added-modal-content flex flex-column align-center">
+      <h2>Stock Added</h2>
+      <p>
+        The NAME stock was added to your Favorites.
+      </p>
     </div>
   </div>
   <header>
@@ -73,5 +81,6 @@
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/symbol-name.js"></script>
 </body>
 </html>

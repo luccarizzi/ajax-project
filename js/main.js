@@ -10,10 +10,10 @@ $searchInput.addEventListener('blur', function (e) {
 });
 
 var $closeButton = document.getElementById('close-modal-button');
-var $modal = document.getElementById('modal');
+var $closeModal = document.getElementById('close-modal');
 
 $closeButton.addEventListener('click', function (e) {
-  $modal.style.display = 'none';
+  $closeModal.style.display = 'none';
   document.forms['search-symbol-form'].reset();
 });
 
@@ -34,7 +34,7 @@ document.addEventListener('submit', function (e) {
     apiRequest = xhr.response;
 
     if (apiRequest['Meta Data'] === undefined) {
-      $modal.style.display = 'flex';
+      $closeModal.style.display = 'flex';
     } else {
 
       var shareName = apiRequest['Meta Data']['2. Symbol'];
@@ -80,11 +80,13 @@ document.addEventListener('submit', function (e) {
         dividendPayment: dividendPay.toFixed(2),
         annualPaymentRate: annualPaymentRate
       };
+
+      document.querySelector('[data-view=detail]').innerHTML = '';
+      document.querySelector('[data-view=detail]').prepend(renderSearchDetail(stockInfo));
+      document.querySelector('[data-view=detail]').style.display = '';
+      document.forms['search-symbol-form'].reset();
     }
-    document.querySelector('[data-view=detail]').innerHTML = '';
-    document.querySelector('[data-view=detail]').prepend(renderSearchDetail(stockInfo));
-    document.querySelector('[data-view=detail]').style.display = '';
-    document.forms['search-symbol-form'].reset();
+
   });
   xhr.send();
 });
@@ -347,3 +349,11 @@ document.addEventListener('click', function (e) {
     }
   }
 });
+
+function symbolName (stockSymbol) {
+  for (var i = 0; i < myJson.length; i++) {
+    if (myJson[i].symbol === stockSymbol) {
+      return myJson[i].name;
+    }
+  }
+}
