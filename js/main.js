@@ -311,10 +311,13 @@ function swapView(view) {
 }
 
 var $section = document.querySelector('section[data-view="favorite"]');
+var $addedModal = document.getElementById('added-modal');
 
 document.addEventListener('click', function (e) {
   if (e.target.id === 'add-to-favorite-button') {
     data.stocks.unshift(stockInfo);
+    console.log('added stock');
+    $addedModal.style.display = "flex";
   }
   if (e.target.parentNode.tagName === 'NAV') {
     swapView(e.target.dataset.view);
