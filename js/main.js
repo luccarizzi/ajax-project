@@ -237,49 +237,59 @@ function renderFavorites() {
   div.append(divHeader, divListContainer);
   divHeader.append(h1Title, pSubtitle);
 
-  for (var i = 0; i < data.stocks.length; i++) {
-    var divTitle = document.createElement('div');
-    divTitle.className = 'flex font-white justify-between list-line';
+  if (data.stocks.length !== 0) {
 
-    var divStock = document.createElement('div');
-    divStock.className = 'column-3 break-text';
+    for (var i = 0; i < data.stocks.length; i++) {
+      var divTitle = document.createElement('div');
+      divTitle.className = 'flex font-white justify-between list-line';
 
-    var pStock = document.createElement('p');
-    pStock.textContent = data.stocks[i].name;
+      var divStock = document.createElement('div');
+      divStock.className = 'column-3 break-text';
 
-    var divButtons = document.createElement('div');
-    divButtons.className = 'flex align-center';
+      var pStock = document.createElement('p');
+      pStock.textContent = data.stocks[i].name;
 
-    var aDetail = document.createElement('a');
-    aDetail.setAttribute('href', '#');
-    aDetail.className = 'a-margin';
+      var divButtons = document.createElement('div');
+      divButtons.className = 'flex align-center';
 
-    var divDetailButton = document.createElement('div');
-    divDetailButton.className = 'list-button list-detail-button';
+      var aDetail = document.createElement('a');
+      aDetail.setAttribute('href', '#');
+      aDetail.className = 'a-margin';
 
-    var iDetail = document.createElement('i');
-    iDetail.className = 'fas fa-bars';
+      var divDetailButton = document.createElement('div');
+      divDetailButton.className = 'list-button list-detail-button';
 
-    var aTrash = document.createElement('a');
-    aTrash.setAttribute('href', '#');
-    aTrash.className = 'a-margin';
+      var iDetail = document.createElement('i');
+      iDetail.className = 'fas fa-bars';
 
-    var divTrashButton = document.createElement('div');
-    divTrashButton.className = 'list-button list-remove-button';
+      var aTrash = document.createElement('a');
+      aTrash.setAttribute('href', '#');
+      aTrash.className = 'a-margin';
 
-    var iTrash = document.createElement('i');
-    iTrash.className = 'fas fa-trash-alt';
+      var divTrashButton = document.createElement('div');
+      divTrashButton.className = 'list-button list-remove-button';
 
-    divListContainer.append(divTitle);
-    divTitle.append(divStock, divButtons);
-    divStock.append(pStock);
-    divButtons.append(aDetail, aTrash);
+      var iTrash = document.createElement('i');
+      iTrash.className = 'fas fa-trash-alt';
 
-    aDetail.append(divDetailButton);
-    divDetailButton.append(iDetail);
+      divListContainer.append(divTitle);
+      divTitle.append(divStock, divButtons);
+      divStock.append(pStock);
+      divButtons.append(aDetail, aTrash);
 
-    aTrash.append(divTrashButton);
-    divTrashButton.append(iTrash);
+      aDetail.append(divDetailButton);
+      divDetailButton.append(iDetail);
+
+      aTrash.append(divTrashButton);
+      divTrashButton.append(iTrash);
+    }
+  } else {
+
+    var pEmpty = document.createElement('p');
+    pEmpty.className = 'empty-list';
+    pEmpty.textContent = 'Your list is currently empty, click on Search and find stocks you want to add to your Favorite List.';
+
+    divHeader.append(pEmpty);
   }
 
   return div;

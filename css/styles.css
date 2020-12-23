@@ -279,3 +279,9 @@ header {
 .a-margin {
   margin-right: 10px;
 }
+
+.empty-list {
+  color: #bc2a2a;
+  font-size: 18px;
+  text-align: center;
+}
