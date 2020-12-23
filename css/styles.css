@@ -288,3 +288,8 @@ header {
   font-size: 18px;
   text-align: center;
 }
+
+#stock-name {
+  color: #007b25;
+  font-weight: 700;
+}

@@ -1,3 +1,4 @@
+
 var myJson = [
   {
     "symbol": "A",
@@ -12030,6 +12031,10 @@ var myJson = [
   {
     "symbol": "TSI",
       "name": "Tcw Strategic"
+  },
+  {
+    "symbol": "TSLA",
+    "name": "Tesla, Inc."
   },
   {
     "symbol": "TSLX",

@@ -17,6 +17,14 @@ $closeButton.addEventListener('click', function (e) {
   document.forms['search-symbol-form'].reset();
 });
 
+function getSymbolName(stockSymbol) {
+  for (var i = 0; i < myJson.length; i++) {
+    if (myJson[i].symbol === stockSymbol) {
+      return myJson[i].name;
+    }
+  }
+}
+
 var symbol = '';
 var apiKey = 'JI3EUIMS58M4XZ08';
 var apiRequest;
@@ -37,7 +45,8 @@ document.addEventListener('submit', function (e) {
       $closeModal.style.display = 'flex';
     } else {
 
-      var shareName = apiRequest['Meta Data']['2. Symbol'];
+      var shareSymbol = apiRequest['Meta Data']['2. Symbol'];
+      var name = getSymbolName(symbol);
       var request = apiRequest['Time Series (Daily)'];
       var dividendPerShare = 0;
       var dividendPay = 0;
@@ -72,7 +81,8 @@ document.addEventListener('submit', function (e) {
       var dividendYield = (dividendPerShare / adjustedClose * 100).toFixed(2);
 
       stockInfo = {
-        name: shareName,
+        symbol: shareSymbol,
+        name: name,
         share: adjustedClose.toFixed(2),
         dividendPerShare: dividendPerShare.toFixed(2),
         dividendYield: dividendYield,
@@ -312,11 +322,13 @@ function swapView(view) {
 
 var $section = document.querySelector('section[data-view="favorite"]');
 var $addedModal = document.getElementById('added-modal');
+var $stockName = document.getElementById('stock-name');
 
 document.addEventListener('click', function (e) {
   if (e.target.id === 'add-to-favorite-button') {
     data.stocks.unshift(stockInfo);
     $addedModal.style.display = "flex";
+    $stockName.textContent = stockInfo.name;
     var addedStockTimer = setInterval(function timerOneSec() {
       $addedModal.style.display = "none";
       clearInterval(addedStockTimer);
@@ -355,11 +367,3 @@ document.addEventListener('click', function (e) {
     }
   }
 });
-
-function symbolName (stockSymbol) {
-  for (var i = 0; i < myJson.length; i++) {
-    if (myJson[i].symbol === stockSymbol) {
-      return myJson[i].name;
-    }
-  }
-}
