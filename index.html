@@ -14,8 +14,8 @@
   <link rel="stylesheet" href="css/layout.css">
 </head>
 <body class="varela-round">
-  <div id="modal" class="modal" style="display: none">
-    <div class="modal-content flex flex-column align-center">
+  <div id="close-modal" class="close-modal" style="display: none">
+    <div class="close-modal-content flex flex-column align-center">
       <h2>This symbol does not exist</h2>
       <p>
         Unfortuntately, the symbol you entered does not exist.
@@ -29,6 +29,28 @@
       value="Close">
     </div>
   </div>
+  <div id="added-modal" class="added-modal" style="display: none">
+    <div class="modal-content flex flex-column align-center">
+      <h2>Stock Added</h2>
+      <p>
+        The <span id="stock-name-added"></span> stock has been added to your Favorites list.
+      </p>
+    </div>
+  </div>
+  <div id="repeat-modal" class="repeat-modal" style="display: none">
+    <div class="modal-content flex flex-column align-center">
+      <h2>Stock has already been added</h2>
+      <p>
+        The <span id="stock-name-repeat"></span> has already been added to you Favorite list. Please pick another stock.
+      </p>
+      <input
+      id="close-repeat-modal-button"
+      class="close-modal-button"
+      name="close-repeat-modal-button"
+      type="submit"
+      value="Close">
+    </div>
+    </div>
   <header>
     <div class="container flex">
       <div class="logo">
@@ -73,5 +95,6 @@
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/symbol-name.js"></script>
 </body>
 </html>
