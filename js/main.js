@@ -332,7 +332,7 @@ document.addEventListener('click', function (e) {
     var addedStockTimer = setInterval(function timerOneSec() {
       $addedModal.style.display = "none";
       clearInterval(addedStockTimer);
-    }, 2000);
+    }, 3000);
   }
   if (e.target.parentNode.tagName === 'NAV') {
     swapView(e.target.dataset.view);
