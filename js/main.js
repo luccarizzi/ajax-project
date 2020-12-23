@@ -125,7 +125,7 @@ function renderSearchDetail(stockInfo) {
 
   var spanDivYieldData = document.createElement('span');
   if (stockInfo.dividendYield === 'N/A' || stockInfo.dividendYield === '0.00') {
-    spanDivYieldData.className = 'data noDiv';
+    spanDivYieldData.className = 'data no-dividend';
   } else {
     spanDivYieldData.className = 'data';
   }
@@ -140,7 +140,7 @@ function renderSearchDetail(stockInfo) {
 
   var spanDivPerShareData = document.createElement('span');
   if (stockInfo.dividendPerShare === 'N/A' || stockInfo.dividendPerShare === '0.00') {
-    spanDivPerShareData.className = 'data noDiv';
+    spanDivPerShareData.className = 'data no-dividend';
   } else {
     spanDivPerShareData.className = 'data';
   }
@@ -155,7 +155,7 @@ function renderSearchDetail(stockInfo) {
 
   var spanDivPaymentData = document.createElement('span');
   if (stockInfo.dividendPayment === 'N/A' || stockInfo.dividendPayment === '0.00') {
-    spanDivPaymentData.className = 'data noDiv';
+    spanDivPaymentData.className = 'data no-dividend';
   } else {
     spanDivPaymentData.className = 'data';
   }
@@ -170,7 +170,7 @@ function renderSearchDetail(stockInfo) {
 
   var spanFrequencyData = document.createElement('span');
   if (stockInfo.annualPaymentRate === 'N/A' || stockInfo.annualPaymentRate === 0) {
-    spanFrequencyData.className = 'data noDiv';
+    spanFrequencyData.className = 'data no-dividend';
   } else {
     spanFrequencyData.className = 'data';
   }
@@ -185,7 +185,7 @@ function renderSearchDetail(stockInfo) {
 
   var spanLastDivDateData = document.createElement('span');
   if (stockInfo.dividendDate === 'N/A' || stockInfo.dividendDate === 0) {
-    spanLastDivDateData.className = 'data noDiv';
+    spanLastDivDateData.className = 'data no-dividend';
   } else {
     spanLastDivDateData.className = 'data';
   }
@@ -195,7 +195,7 @@ function renderSearchDetail(stockInfo) {
   divButton.className = 'flex justify-center';
 
   var aButton = document.createElement('a');
-  aButton.className = 'save-button';
+  aButton.className = 'add-button';
   aButton.setAttribute('href', '#');
   aButton.setAttribute('id', 'add-to-favorite-button');
   aButton.setAttribute('onclick', 'this.blur()');
