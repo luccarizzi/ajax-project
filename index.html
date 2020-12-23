@@ -30,13 +30,27 @@
     </div>
   </div>
   <div id="added-modal" class="added-modal" style="display: none">
-    <div class="added-modal-content flex flex-column align-center">
+    <div class="modal-content flex flex-column align-center">
       <h2>Stock Added</h2>
       <p>
-        The <span id="stock-name"></span> stock was added to your Favorites list.
+        The <span id="stock-name-added"></span> stock has been added to your Favorites list.
       </p>
     </div>
   </div>
+  <div id="repeat-modal" class="repeat-modal" style="display: none">
+    <div class="modal-content flex flex-column align-center">
+      <h2>Stock has already been added</h2>
+      <p>
+        The <span id="stock-name-repeat"></span> has already been added to you Favorite list. Please pick another stock.
+      </p>
+      <input
+      id="close-repeat-modal-button"
+      class="close-modal-button"
+      name="close-repeat-modal-button"
+      type="submit"
+      value="Close">
+    </div>
+    </div>
   <header>
     <div class="container flex">
       <div class="logo">

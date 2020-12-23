@@ -132,6 +132,7 @@ header {
   color: #ff5a40;
 }
 
+.repeat-modal,
 .close-modal,
 .added-modal {
   position: fixed;
@@ -147,7 +148,7 @@ header {
   flex-direction: column;
 }
 
-.close-modal-content {
+.modal-content {
   width: 450px;
   max-width: 100%;
   background-color: #fff;
@@ -156,14 +157,14 @@ header {
   box-shadow: 1px 1px 7px #fff;
 }
 
-.added-modal-content {
+/* .added-modal-content {
   width: 450px;
   max-width: 100%;
   background-color: #fff;
   border-radius: 1rem;
   padding: 1rem;
   box-shadow: 1px 1px 7px #fff;
-}
+} */
 
 .close-modal-button {
   margin-top: 1rem;
@@ -289,7 +290,8 @@ header {
   text-align: center;
 }
 
-#stock-name {
+#stock-name-repeat,
+#stock-name-added {
   color: #007b25;
   font-weight: 700;
 }

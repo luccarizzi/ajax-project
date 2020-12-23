@@ -9,14 +9,6 @@ $searchInput.addEventListener('blur', function (e) {
   $searchInput.setAttribute('placeholder', 'Stock symbol');
 });
 
-var $closeButton = document.getElementById('close-modal-button');
-var $closeModal = document.getElementById('close-modal');
-
-$closeButton.addEventListener('click', function (e) {
-  $closeModal.style.display = 'none';
-  document.forms['search-symbol-form'].reset();
-});
-
 function getSymbolName(stockSymbol) {
   for (var i = 0; i < myJson.length; i++) {
     if (myJson[i].symbol === stockSymbol) {
@@ -320,19 +312,46 @@ function swapView(view) {
   data.dataview = view;
 }
 
+var $closeButton = document.getElementById('close-modal-button');
+var $closeModal = document.getElementById('close-modal');
+
+$closeButton.addEventListener('click', function (e) {
+  $closeModal.style.display = 'none';
+  document.forms['search-symbol-form'].reset();
+});
+
+var $closeRepeatButton = document.getElementById('close-repeat-modal-button');
+
+$closeRepeatButton.addEventListener('click', function (e) {
+  $repeatModal.style.display = 'none';
+});
+
 var $section = document.querySelector('section[data-view="favorite"]');
 var $addedModal = document.getElementById('added-modal');
-var $stockName = document.getElementById('stock-name');
+var $stockNameAdded = document.getElementById('stock-name-added');
+var $repeatModal = document.getElementById('repeat-modal');
+var $stockNameRepeat = document.getElementById('stock-name-repeat');
 
 document.addEventListener('click', function (e) {
   if (e.target.id === 'add-to-favorite-button') {
+
+    if (data.stocks.length !== 0) {
+      for (var i = 0; i < data.stocks.length; i++) {
+        if (stockInfo.name === data.stocks[i].name) {
+          $repeatModal.style.display = "flex";
+          $stockNameRepeat.textContent = stockInfo.name;
+          return;
+        }
+      }
+    }
+
     data.stocks.unshift(stockInfo);
     $addedModal.style.display = "flex";
-    $stockName.textContent = stockInfo.name;
+    $stockNameAdded.textContent = stockInfo.name;
     var addedStockTimer = setInterval(function timerOneSec() {
       $addedModal.style.display = "none";
       clearInterval(addedStockTimer);
-    }, 3000);
+    }, 2500);
   }
   if (e.target.parentNode.tagName === 'NAV') {
     swapView(e.target.dataset.view);
