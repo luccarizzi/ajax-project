@@ -331,6 +331,8 @@ document.addEventListener('click', function (e) {
     for (var i = 0; i < data.stocks.length; i++) {
       if (data.stocks[i].name === toBeRemoved) {
         data.stocks.splice(i, 1);
+        $section.innerHTML = '';
+        $section.append(renderFavorites());
       }
     }
   }
