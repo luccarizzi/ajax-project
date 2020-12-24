@@ -9938,7 +9938,11 @@ var myJson = [
   },
   {
     "symbol": "PTY",
-      "name": "Pimco Corporate Opportunity Fund"
+    "name": "Pimco Corporate Opportunity Fund"
+  },
+  {
+    "symbol": "PTMN",
+    "name": "Portman Ridge Finance Corp"
   },
   {
     "symbol": "PUK",
@@ -10515,6 +10519,10 @@ var myJson = [
   {
     "symbol": "RZB",
       "name": "Reinsurance Group of America"
+  },
+  {
+    "symbol": "S",
+    "name": "Sprint Corporation"
   },
   {
     "symbol": "SA",

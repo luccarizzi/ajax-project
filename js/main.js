@@ -248,7 +248,7 @@ function renderFavorites() {
       divTitle.className = 'flex font-white justify-between list-line';
 
       var divStock = document.createElement('div');
-      divStock.className = 'column-3 break-text';
+      divStock.className = 'column-3 list';
 
       var pStock = document.createElement('p');
       pStock.textContent = data.stocks[i].name;
@@ -332,6 +332,9 @@ var $stockNameAdded = document.getElementById('stock-name-added');
 var $repeatModal = document.getElementById('repeat-modal');
 var $stockNameRepeat = document.getElementById('stock-name-repeat');
 
+// var counter;
+var $timer = document.getElementById('timer');
+
 document.addEventListener('click', function (e) {
   if (e.target.id === 'add-to-favorite-button') {
 
@@ -348,10 +351,20 @@ document.addEventListener('click', function (e) {
     data.stocks.unshift(stockInfo);
     $addedModal.style.display = "flex";
     $stockNameAdded.textContent = stockInfo.name;
+    var counter = 2;
     var addedStockTimer = setInterval(function timerOneSec() {
-      $addedModal.style.display = "none";
-      clearInterval(addedStockTimer);
-    }, 2500);
+
+      if (counter > 0) {
+        $timer.textContent = counter;
+        counter--;
+      } else {
+        $addedModal.style.display = "none";
+        clearInterval(addedStockTimer);
+      }
+
+    }, 1000);
+    counter = 2;
+    $timer.textContent = 3;
   }
   if (e.target.parentNode.tagName === 'NAV') {
     swapView(e.target.dataset.view);
