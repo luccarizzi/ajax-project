@@ -38,3 +38,4 @@ Turtl allows you to search for a stock using its symbol (or ticker), see details
 
 ## Lessons Learned:
 
+During the development of the project I noticed how response modals are essencial to create a reliable interaction with the user, guaranteeing that the actions were effective. 
