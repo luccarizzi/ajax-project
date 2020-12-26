@@ -6,7 +6,7 @@ $searchInput.addEventListener('focus', function (e) {
 });
 
 $searchInput.addEventListener('blur', function (e) {
-  $searchInput.setAttribute('placeholder', 'Stock symbol');
+  $searchInput.setAttribute('placeholder', 'Search Stock');
 });
 
 function getSymbolName(stockSymbol) {
@@ -232,11 +232,11 @@ function renderFavorites() {
 
   var h1Title = document.createElement('h1');
   h1Title.className = 'title';
-  h1Title.textContent = 'Favorite Stocks List';
+  h1Title.textContent = 'Favorites';
 
   var pSubtitle = document.createElement('p');
   pSubtitle.className = 'subtitle';
-  pSubtitle.textContent = 'Save your favorite stocks and keep track of your investments.';
+  pSubtitle.textContent = 'Keep track of your investments and your favorite stocks.';
 
   div.append(divHeader, divListContainer);
   divHeader.append(h1Title, pSubtitle);
@@ -291,7 +291,7 @@ function renderFavorites() {
 
     var pEmpty = document.createElement('p');
     pEmpty.className = 'empty-list';
-    pEmpty.textContent = 'Your list is currently empty, click on Search and find stocks you want to add to your Favorite List.';
+    pEmpty.textContent = 'Your list is currently empty, click on Search to find stocks and add them to Favorites.';
 
     divHeader.append(pEmpty);
   }

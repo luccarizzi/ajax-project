@@ -16,9 +16,9 @@
 <body class="varela-round">
   <div id="close-modal" class="close-modal" style="display: none">
     <div class="modal-content flex flex-column align-center">
-      <h2>This symbol does not exist</h2>
+      <h2>Symbol does not exist</h2>
       <p>
-        Unfortuntately, the symbol you entered does not exist.
+        Unfortunately, the symbol you entered does not exist.
         Please try again.
       </p>
       <input
@@ -33,7 +33,7 @@
     <div class="modal-content flex flex-column align-center">
       <h2>Stock Added</h2>
       <p>
-        The <span id="stock-name-added"></span> stock has been added to your Favorites list.
+        The <span id="stock-name-added"></span> stock has been added to Favorites.
       </p>
       <p>Please wait <span id="timer">3</span> seconds.</p>
     </div>
@@ -42,7 +42,7 @@
     <div class="modal-content flex flex-column align-center">
       <h2>Stock has already been added</h2>
       <p>
-        The <span id="stock-name-repeat"></span> has already been added to you Favorite list. Please pick another stock.
+        The <span id="stock-name-repeat"></span> stock has already been added to Favorites. Please pick another stock.
       </p>
       <input
       id="close-repeat-modal-button"
@@ -55,7 +55,7 @@
   <header>
     <div class="container flex">
       <div class="logo">
-        <h1>turtl</h1>
+        <a data-view="logo" href="#">turtl</a>
       </div>
       <nav class="flex justify-around align-center">
         <a data-view="favorite" href="#"><i class="fas fa-star"></i> Favorites</a>
@@ -67,10 +67,10 @@
     <div class="container">
       <section data-view="search">
         <div class="column-1 font-white text-center">
-          <h1 class="title">Search by stock symbol</h1>
+          <h1 class="title">Search a stock</h1>
           <p class="subtitle">
-            Turtl allows you to search stocks by their symbol and save your favorite ones.
-            Use the search bar to find a stock.
+            Turtl allows you to search stocks by their symbol and add them to Favorites.
+            If you do not know the company's symbol, please visit <a target="blank" class="link" href="https://finance.yahoo.com/">Yahoo Finance</a>.
           </p>
         </div>
         <form id="search-symbol-form" class="flex wrap justify-center symbol-form">
@@ -79,7 +79,7 @@
             id="symbol-search"
             name="symbol-search"
             type="text"
-            placeholder="Stock symbol"
+            placeholder="Search Stock"
             required>
             <input
             onclick="this.blur()"

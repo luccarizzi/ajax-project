@@ -69,9 +69,10 @@ p {
 
 .logo {
   width: 40%;
-  margin-left: 1rem;
+  margin: 1.6rem 0 1.6rem 1rem;
   color: #fff;
   font-family: 'Bungee', cursive;
+  font-size: 32px;
 }
 
 nav {
@@ -283,4 +284,13 @@ header {
 #stock-name-added {
   color: #007b25;
   font-weight: 700;
+}
+
+.link {
+  text-decoration: underline;
+
+}
+
+.link:hover {
+  color: #4a79fd;
 }
