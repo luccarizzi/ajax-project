@@ -1,5 +1,5 @@
 
-var myJson = [
+var stockSymbolName = [
  {
    "symbol": "A",
    "name": "Agilent Technologies Inc"

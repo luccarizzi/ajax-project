@@ -10,9 +10,9 @@ $searchInput.addEventListener('blur', function (e) {
 });
 
 function getSymbolName(stockSymbol) {
-  for (var i = 0; i < myJson.length; i++) {
-    if (myJson[i].symbol === stockSymbol) {
-      return myJson[i].name;
+  for (var i = 0; i < stockSymbolName.length; i++) {
+    if (stockSymbolName[i].symbol === stockSymbol) {
+      return stockSymbolName[i].name;
     }
   }
 }
@@ -36,10 +36,14 @@ document.addEventListener('submit', function (e) {
   xhr.addEventListener('load', function (e) {
     apiRequest = xhr.response;
 
-    if (apiRequest['Meta Data'] === undefined) {
+    if (apiRequest['Note'] === 'Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency.') {
+      console.log("max request reached");
+    } else if (apiRequest["Error Message"] === 'Invalid API call. Please retry or visit the documentation (https://www.alphavantage.co/documentation/) for TIME_SERIES_DAILY_ADJUSTED.') {
       $closeModal.style.display = 'flex';
       $loadingSpinner.style.display = "none";
-    } else {
+    }
+
+    else {
 
       var shareSymbol = apiRequest['Meta Data']['2. Symbol'];
       var name = getSymbolName(symbol);
