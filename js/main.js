@@ -366,6 +366,11 @@ document.addEventListener('click', function (e) {
     counter = 2;
     $timer.textContent = 3;
   }
+
+  if (e.target.dataset.view === 'logo') {
+    swapView('search');
+  }
+
   if (e.target.parentNode.tagName === 'NAV') {
     swapView(e.target.dataset.view);
     if (e.target.dataset.view === 'favorite') {
