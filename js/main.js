@@ -22,6 +22,8 @@ var apiKey = 'JI3EUIMS58M4XZ08';
 var apiRequest;
 var stockInfo = {};
 
+var $loadingSpinner = document.getElementById('loading-spinner');
+
 document.addEventListener('submit', function (e) {
   e.preventDefault();
   symbol = document.forms['search-symbol-form'].elements['symbol-search'].value.toUpperCase();
@@ -29,12 +31,14 @@ document.addEventListener('submit', function (e) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=' + symbol + '&outputsize=full&apikey=' + apiKey);
   xhr.responseType = 'json';
+  $loadingSpinner.style.display = "flex";
 
   xhr.addEventListener('load', function (e) {
     apiRequest = xhr.response;
 
     if (apiRequest['Meta Data'] === undefined) {
       $closeModal.style.display = 'flex';
+      $loadingSpinner.style.display = "none";
     } else {
 
       var shareSymbol = apiRequest['Meta Data']['2. Symbol'];
@@ -216,6 +220,7 @@ function renderSearchDetail(stockInfo) {
   pLastDivDate.append(spanLastDivDateTag, brLastDivDate, spanLastDivDateData);
 
   divButton.append(aButton);
+  $loadingSpinner.style.display = "none";
 
   return divSearchDetailContainer;
 }
@@ -332,7 +337,6 @@ var $stockNameAdded = document.getElementById('stock-name-added');
 var $repeatModal = document.getElementById('repeat-modal');
 var $stockNameRepeat = document.getElementById('stock-name-repeat');
 
-// var counter;
 var $timer = document.getElementById('timer');
 
 document.addEventListener('click', function (e) {
