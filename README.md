@@ -4,10 +4,14 @@ Turtl allows you to search for a stock using its symbol (or ticker), see details
 
 ## How to use turtl?
 
-Simply type the stock's symbol. 
+1. Type the stock's symbol in the search bar.
 
 Examples:
 - TSLA is the symbol for Tesla Inc;
 - T is the symbol for AT&T Inc;
 - KO is the symbol for Coca-Cola Company.
+
+2. Click on the "Add to Favorites" button to save the stock to Favorites.
+
+3 . See the stocks you added in the Favorites section.
 
