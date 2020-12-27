@@ -342,14 +342,14 @@ $closeButton.addEventListener('click', function (e) {
 
 var $closeRepeatButton = document.getElementById('close-repeat-modal-button');
 
-// close modal
+// close repeat modal
 $closeRepeatButton.addEventListener('click', function (e) {
   $repeatModal.style.display = 'none';
 });
 
 var $limitModalButton = document.getElementById('limit-modal-button');
 
-// close modal
+// close limit modal
 $limitModalButton.addEventListener('click', function (e) {
   $limitModal.style.display = 'none';
   $loadingSpinner.style.display = "none";
@@ -358,6 +358,7 @@ $limitModalButton.addEventListener('click', function (e) {
 
 var $errorModalButton = document.getElementById('error-modal-button');
 
+// close error modal
 $errorModalButton.addEventListener('click', function(e) {
   $errorModal.style.display = 'none';
   $loadingSpinner.style.display = 'none';
