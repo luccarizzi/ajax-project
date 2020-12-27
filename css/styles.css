@@ -141,6 +141,7 @@ header {
   color: #ff5a40;
 }
 
+.error-modal,
 .limit-modal,
 .loading-modal,
 .repeat-modal,

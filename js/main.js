@@ -27,6 +27,7 @@ var stockInfo = {};
 
 var $loadingSpinner = document.getElementById('loading-spinner');
 var $limitModal = document.getElementById('limit-modal');
+var $errorModal = document.getElementById('error-modal');
 
 // API request and returns the information requested or an notification
 document.addEventListener('submit', function (e) {
@@ -39,7 +40,7 @@ document.addEventListener('submit', function (e) {
   $loadingSpinner.style.display = "flex";
 
   xhr.onerror = function() {
-    console.log(xhr)
+    $errorModal.style.display = 'flex';
   }
 
   xhr.addEventListener('load', function (e) {
@@ -107,14 +108,7 @@ document.addEventListener('submit', function (e) {
     }
 
   });
-
-  try {
-    xhr.send();
-  }
-  catch (err) {
-    console.log(err.message)
-  }
-
+  xhr.send();
 });
 
 // function to render the information from the API request
@@ -360,6 +354,13 @@ $limitModalButton.addEventListener('click', function (e) {
   $limitModal.style.display = 'none';
   $loadingSpinner.style.display = "none";
   document.forms[0].reset();
+})
+
+var $errorModalButton = document.getElementById('error-modal-button');
+
+$errorModalButton.addEventListener('click', function(e) {
+  $errorModal.style.display = 'none';
+  $loadingSpinner.style.display = 'none';
 })
 
 var $section = document.querySelector('section[data-view="favorite"]');
