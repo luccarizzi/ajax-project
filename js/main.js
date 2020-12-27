@@ -38,6 +38,10 @@ document.addEventListener('submit', function (e) {
   xhr.responseType = 'json';
   $loadingSpinner.style.display = "flex";
 
+  xhr.onerror = function() {
+    console.log(xhr)
+  }
+
   xhr.addEventListener('load', function (e) {
     apiRequest = xhr.response;
 
@@ -103,7 +107,14 @@ document.addEventListener('submit', function (e) {
     }
 
   });
-  xhr.send();
+
+  try {
+    xhr.send();
+  }
+  catch (err) {
+    console.log(err.message)
+  }
+
 });
 
 // function to render the information from the API request
