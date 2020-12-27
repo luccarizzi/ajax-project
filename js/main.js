@@ -1,18 +1,21 @@
 
 var $searchInput = document.getElementById('symbol-search');
 
+// remove the initial placeholder when the user starts to type
 $searchInput.addEventListener('focus', function (e) {
   $searchInput.setAttribute('placeholder', '');
 });
 
+// return the place holder when the user blurs the input
 $searchInput.addEventListener('blur', function (e) {
   $searchInput.setAttribute('placeholder', 'Search Stock');
 });
 
+// function to get the stock's name using the symbol as a parameter
 function getSymbolName(stockSymbol) {
-  for (var i = 0; i < myJson.length; i++) {
-    if (myJson[i].symbol === stockSymbol) {
-      return myJson[i].name;
+  for (var i = 0; i < stockSymbolName.length; i++) {
+    if (stockSymbolName[i].symbol === stockSymbol) {
+      return stockSymbolName[i].name;
     }
   }
 }
@@ -22,6 +25,11 @@ var apiKey = 'JI3EUIMS58M4XZ08';
 var apiRequest;
 var stockInfo = {};
 
+var $loadingSpinner = document.getElementById('loading-spinner');
+var $limitModal = document.getElementById('limit-modal');
+var $errorModal = document.getElementById('error-modal');
+
+// API request and returns the information requested or an notification
 document.addEventListener('submit', function (e) {
   e.preventDefault();
   symbol = document.forms['search-symbol-form'].elements['symbol-search'].value.toUpperCase();
@@ -29,13 +37,23 @@ document.addEventListener('submit', function (e) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=' + symbol + '&outputsize=full&apikey=' + apiKey);
   xhr.responseType = 'json';
+  $loadingSpinner.style.display = "flex";
+
+  xhr.onerror = function() {
+    $errorModal.style.display = 'flex';
+  }
 
   xhr.addEventListener('load', function (e) {
     apiRequest = xhr.response;
 
-    if (apiRequest['Meta Data'] === undefined) {
+    if (apiRequest['Note'] === 'Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency.') {
+      $limitModal.style.display = 'flex';
+    } else if (apiRequest["Error Message"] === 'Invalid API call. Please retry or visit the documentation (https://www.alphavantage.co/documentation/) for TIME_SERIES_DAILY_ADJUSTED.') {
       $closeModal.style.display = 'flex';
-    } else {
+      $loadingSpinner.style.display = "none";
+    }
+
+    else {
 
       var shareSymbol = apiRequest['Meta Data']['2. Symbol'];
       var name = getSymbolName(symbol);
@@ -93,6 +111,7 @@ document.addEventListener('submit', function (e) {
   xhr.send();
 });
 
+// function to render the information from the API request
 function renderSearchDetail(stockInfo) {
 
   var divSearchDetailContainer = document.createElement('div');
@@ -216,10 +235,12 @@ function renderSearchDetail(stockInfo) {
   pLastDivDate.append(spanLastDivDateTag, brLastDivDate, spanLastDivDateData);
 
   divButton.append(aButton);
+  $loadingSpinner.style.display = "none";
 
   return divSearchDetailContainer;
 }
 
+// renders a list of the stocks added to Favorites
 function renderFavorites() {
 
   var div = document.createElement('div');
@@ -288,19 +309,17 @@ function renderFavorites() {
       divTrashButton.append(iTrash);
     }
   } else {
-
     var pEmpty = document.createElement('p');
     pEmpty.className = 'empty-list';
     pEmpty.textContent = 'Your list is currently empty, click on Search to find stocks and add them to Favorites.';
-
     divHeader.append(pEmpty);
   }
-
   return div;
 }
 
 var $dataViewList = document.querySelectorAll('section[data-view]');
 
+// swaps the view accoding to the anchor element that was clicked
 function swapView(view) {
   for (var i = 0; i < $dataViewList.length; i++) {
     if ($dataViewList[i].dataset.view === view) {
@@ -315,6 +334,7 @@ function swapView(view) {
 var $closeButton = document.getElementById('close-modal-button');
 var $closeModal = document.getElementById('close-modal');
 
+// close modal
 $closeButton.addEventListener('click', function (e) {
   $closeModal.style.display = 'none';
   document.forms['search-symbol-form'].reset();
@@ -322,9 +342,27 @@ $closeButton.addEventListener('click', function (e) {
 
 var $closeRepeatButton = document.getElementById('close-repeat-modal-button');
 
+// close repeat modal
 $closeRepeatButton.addEventListener('click', function (e) {
   $repeatModal.style.display = 'none';
 });
+
+var $limitModalButton = document.getElementById('limit-modal-button');
+
+// close limit modal
+$limitModalButton.addEventListener('click', function (e) {
+  $limitModal.style.display = 'none';
+  $loadingSpinner.style.display = "none";
+  document.forms[0].reset();
+})
+
+var $errorModalButton = document.getElementById('error-modal-button');
+
+// close error modal
+$errorModalButton.addEventListener('click', function(e) {
+  $errorModal.style.display = 'none';
+  $loadingSpinner.style.display = 'none';
+})
 
 var $section = document.querySelector('section[data-view="favorite"]');
 var $addedModal = document.getElementById('added-modal');
@@ -332,9 +370,9 @@ var $stockNameAdded = document.getElementById('stock-name-added');
 var $repeatModal = document.getElementById('repeat-modal');
 var $stockNameRepeat = document.getElementById('stock-name-repeat');
 
-// var counter;
 var $timer = document.getElementById('timer');
 
+// add to favorites button
 document.addEventListener('click', function (e) {
   if (e.target.id === 'add-to-favorite-button') {
 
@@ -380,6 +418,7 @@ document.addEventListener('click', function (e) {
   }
 });
 
+// converts dividend frequency to a descriptive period
 function annualFreqConverter(freq) {
   if (freq === 1) {
     return 'annually';
@@ -392,6 +431,7 @@ function annualFreqConverter(freq) {
   }
 }
 
+// remove a stock from Favorites
 document.addEventListener('click', function (e) {
   if (e.target.className === 'fas fa-trash-alt' || e.target.className === 'list-button list-remove-button') {
     var toBeRemoved = e.target.closest('div.list-line').firstElementChild.textContent;
