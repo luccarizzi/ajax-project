@@ -1,6 +1,10 @@
 # turtl
 
-Turtl allows you to search for a stock using its symbol (or ticker), see details about the stocks dividend information and save your favorite stocks.
+Turtle is a dynamic HTML, CSS, and JavaScript project that allows you to search for a stock using its symbol (or ticker), see details about the stocks dividend information and save your favorite stocks.
+
+#### Live Link
+
+https://luccarizzi.github.io/ajax-project/
 
 ## How to use turtl?
 
