@@ -302,8 +302,8 @@ function renderFavorites() {
       divStock.append(pStock);
       divButtons.append(aDetail, aTrash);
 
-      aDetail.append(divDetailButton);
-      divDetailButton.append(iDetail);
+      // aDetail.append(divDetailButton);
+      // divDetailButton.append(iDetail);
 
       aTrash.append(divTrashButton);
       divTrashButton.append(iTrash);
