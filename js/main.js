@@ -35,7 +35,7 @@ document.addEventListener('submit', function (e) {
   symbol = document.forms['search-symbol-form'].elements['symbol-search'].value.toUpperCase();
 
   const xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=' + symbol + '&outputsize=full&apikey=' + apiKey);
+  xhr.open('GET', `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${symbol}&outputsize=full&apikey=${apiKey}`);
   xhr.responseType = 'json';
   $loadingSpinner.style.display = "flex";
 
@@ -74,7 +74,7 @@ document.addEventListener('submit', function (e) {
         } else {
           const divDate = dividendHistory[0];
           const splitDate = divDate.split('-');
-          dividendExDate = splitDate[1] + '/' + splitDate[2] + '/' + splitDate[0];
+          dividendExDate = `${splitDate[1]}/${splitDate[2]}/${splitDate[0]}`;
         }
       }
 
@@ -167,7 +167,7 @@ function renderSearchDetail(stockInfo) {
   } else {
     spanDivPerShareData.className = 'data';
   }
-  spanDivPerShareData.textContent = '$' + stockInfo.dividendPerShare;
+  spanDivPerShareData.textContent = `$${stockInfo.dividendPerShare}`;
 
   const pDivPayment = document.createElement('p');
   const spanDivPaymentTag = document.createElement('span');
@@ -182,7 +182,7 @@ function renderSearchDetail(stockInfo) {
   } else {
     spanDivPaymentData.className = 'data';
   }
-  spanDivPaymentData.textContent = '$' + stockInfo.dividendPayment;
+  spanDivPaymentData.textContent = `$${stockInfo.dividendPayment}`;
 
   const pFrequency = document.createElement('p');
   const spanFrequencyTag = document.createElement('span');
@@ -427,7 +427,7 @@ function annualFreqConverter(freq) {
   } else if (freq === 12) {
     return 'monthly';
   } else {
-    return freq + ' times per year';
+    return `${freq} times per year`;
   }
 }
 
