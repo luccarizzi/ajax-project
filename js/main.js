@@ -1,5 +1,5 @@
 
-var $searchInput = document.getElementById('symbol-search');
+const $searchInput = document.getElementById('symbol-search');
 
 // remove the initial placeholder when the user starts to type
 $searchInput.addEventListener('focus', function (e) {
@@ -13,28 +13,28 @@ $searchInput.addEventListener('blur', function (e) {
 
 // function to get the stock's name using the symbol as a parameter
 function getSymbolName(stockSymbol) {
-  for (var i = 0; i < stockSymbolName.length; i++) {
+  for (let i = 0; i < stockSymbolName.length; i++) {
     if (stockSymbolName[i].symbol === stockSymbol) {
       return stockSymbolName[i].name;
     }
   }
 }
 
-var symbol = '';
-var apiKey = 'JI3EUIMS58M4XZ08';
-var apiRequest;
-var stockInfo = {};
+let symbol = '';
+const apiKey = 'JI3EUIMS58M4XZ08';
+let apiRequest;
+let stockInfo = {};
 
-var $loadingSpinner = document.getElementById('loading-spinner');
-var $limitModal = document.getElementById('limit-modal');
-var $errorModal = document.getElementById('error-modal');
+const $loadingSpinner = document.getElementById('loading-spinner');
+const $limitModal = document.getElementById('limit-modal');
+const $errorModal = document.getElementById('error-modal');
 
 // API request and returns the information requested or an notification
 document.addEventListener('submit', function (e) {
   e.preventDefault();
   symbol = document.forms['search-symbol-form'].elements['symbol-search'].value.toUpperCase();
 
-  var xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=' + symbol + '&outputsize=full&apikey=' + apiKey);
   xhr.responseType = 'json';
   $loadingSpinner.style.display = "flex";
@@ -55,31 +55,31 @@ document.addEventListener('submit', function (e) {
 
     else {
 
-      var shareSymbol = apiRequest['Meta Data']['2. Symbol'];
-      var name = getSymbolName(symbol);
-      var request = apiRequest['Time Series (Daily)'];
-      var dividendPerShare = 0;
-      var dividendPay = 0;
-      var annualPaymentRate = 0;
-      var adjustedClose = 0;
-      var dividendHistory = [];
-      var dividendExDate = dividendHistory[0];
+      const shareSymbol = apiRequest['Meta Data']['2. Symbol'];
+      const name = getSymbolName(symbol);
+      const request = apiRequest['Time Series (Daily)'];
+      let dividendPay = 0;
+      let annualPaymentRate = 0;
+      let adjustedClose = 0;
+      let dividendPerShare = 0;
+      let dividendHistory = [];
+      let dividendExDate = dividendHistory[0];
 
-      for (var day in request) {
+      for (const day in request) {
         if (request[day]['7. dividend amount'] !== '0.0000') {
           dividendHistory.push(day);
         }
         if (dividendHistory.length === 0) {
           dividendExDate = 'N/A';
         } else {
-          var divDate = dividendHistory[0];
-          var splitDate = divDate.split('-');
+          const divDate = dividendHistory[0];
+          const splitDate = divDate.split('-');
           dividendExDate = splitDate[1] + '/' + splitDate[2] + '/' + splitDate[0];
         }
       }
 
-      for (var i = 251; i > 0; i--) {
-        var date = Object.keys(request)[i];
+      for (let i = 251; i > 0; i--) {
+        const date = Object.keys(request)[i];
         if (request[date]['7. dividend amount'] !== '0.0000') {
           dividendPerShare += Number(request[date]['7. dividend amount']);
           dividendPay = Number(request[date]['7. dividend amount']);
@@ -88,7 +88,7 @@ document.addEventListener('submit', function (e) {
         adjustedClose = Number(request[date]['5. adjusted close']);
       }
 
-      var dividendYield = (dividendPerShare / adjustedClose * 100).toFixed(2);
+      const dividendYield = (dividendPerShare / adjustedClose * 100).toFixed(2);
 
       stockInfo = {
         symbol: shareSymbol,
@@ -114,39 +114,39 @@ document.addEventListener('submit', function (e) {
 // function to render the information from the API request
 function renderSearchDetail(stockInfo) {
 
-  var divSearchDetailContainer = document.createElement('div');
+  const divSearchDetailContainer = document.createElement('div');
   divSearchDetailContainer.className = 'flex wrap font-white search-detail-container';
 
-  var divTitle = document.createElement('div');
+  const divTitle = document.createElement('div');
   divTitle.className = 'column-1';
 
-  var h1Title = document.createElement('h1');
+  const h1Title = document.createElement('h1');
   h1Title.className = 'symbol-title';
   h1Title.textContent = stockInfo.name;
 
-  var divInfo = document.createElement('div');
+  const divInfo = document.createElement('div');
   divInfo.className = 'column-1';
 
-  var pShare = document.createElement('p');
-  var spanShareTag = document.createElement('span');
+  const pShare = document.createElement('p');
+  const spanShareTag = document.createElement('span');
   spanShareTag.className = 'tag';
   spanShareTag.textContent = 'share:';
 
-  var brShare = document.createElement('br');
+  const brShare = document.createElement('br');
 
-  var spanShareData = document.createElement('span');
+  const spanShareData = document.createElement('span');
   spanShareData.className = 'data';
   spanShareData.setAttribute('id', 'share-data');
   spanShareData.textContent = '$' + stockInfo.share;
 
-  var pDivYield = document.createElement('p');
-  var spanDivYieldTag = document.createElement('span');
+  const pDivYield = document.createElement('p');
+  const spanDivYieldTag = document.createElement('span');
   spanDivYieldTag.className = 'tag';
   spanDivYieldTag.textContent = 'approx. dividend yield:';
 
-  var brDivYield = document.createElement('br');
+  const brDivYield = document.createElement('br');
 
-  var spanDivYieldData = document.createElement('span');
+  const spanDivYieldData = document.createElement('span');
   if (stockInfo.dividendYield === 'N/A' || stockInfo.dividendYield === '0.00') {
     spanDivYieldData.className = 'data no-dividend';
   } else {
@@ -154,14 +154,14 @@ function renderSearchDetail(stockInfo) {
   }
   spanDivYieldData.textContent = stockInfo.dividendYield + '%';
 
-  var pDivPerShare = document.createElement('p');
-  var spanDivPerShareTag = document.createElement('span');
+  const pDivPerShare = document.createElement('p');
+  const spanDivPerShareTag = document.createElement('span');
   spanDivPerShareTag.className = 'tag';
   spanDivPerShareTag.textContent = 'dividend per share:';
 
-  var brDivPerShare = document.createElement('br');
+  const brDivPerShare = document.createElement('br');
 
-  var spanDivPerShareData = document.createElement('span');
+  const spanDivPerShareData = document.createElement('span');
   if (stockInfo.dividendPerShare === 'N/A' || stockInfo.dividendPerShare === '0.00') {
     spanDivPerShareData.className = 'data no-dividend';
   } else {
@@ -169,14 +169,14 @@ function renderSearchDetail(stockInfo) {
   }
   spanDivPerShareData.textContent = '$' + stockInfo.dividendPerShare;
 
-  var pDivPayment = document.createElement('p');
-  var spanDivPaymentTag = document.createElement('span');
+  const pDivPayment = document.createElement('p');
+  const spanDivPaymentTag = document.createElement('span');
   spanDivPaymentTag.className = 'tag';
   spanDivPaymentTag.textContent = 'dividend payment';
 
-  var brDivPayment = document.createElement('br');
+  const brDivPayment = document.createElement('br');
 
-  var spanDivPaymentData = document.createElement('span');
+  const spanDivPaymentData = document.createElement('span');
   if (stockInfo.dividendPayment === 'N/A' || stockInfo.dividendPayment === '0.00') {
     spanDivPaymentData.className = 'data no-dividend';
   } else {
@@ -184,14 +184,14 @@ function renderSearchDetail(stockInfo) {
   }
   spanDivPaymentData.textContent = '$' + stockInfo.dividendPayment;
 
-  var pFrequency = document.createElement('p');
-  var spanFrequencyTag = document.createElement('span');
+  const pFrequency = document.createElement('p');
+  const spanFrequencyTag = document.createElement('span');
   spanFrequencyTag.className = 'tag';
   spanFrequencyTag.textContent = 'dividend frequency';
 
-  var brFrequency = document.createElement('br');
+  const brFrequency = document.createElement('br');
 
-  var spanFrequencyData = document.createElement('span');
+  const spanFrequencyData = document.createElement('span');
   if (stockInfo.annualPaymentRate === 'N/A' || stockInfo.annualPaymentRate === 0) {
     spanFrequencyData.className = 'data no-dividend';
   } else {
@@ -199,14 +199,14 @@ function renderSearchDetail(stockInfo) {
   }
   spanFrequencyData.textContent = annualFreqConverter(stockInfo.annualPaymentRate);
 
-  var pLastDivDate = document.createElement('p');
-  var spanLastDivDateTag = document.createElement('span');
+  const pLastDivDate = document.createElement('p');
+  const spanLastDivDateTag = document.createElement('span');
   spanLastDivDateTag.className = 'tag';
   spanLastDivDateTag.textContent = 'last dividend date:';
 
-  var brLastDivDate = document.createElement('br');
+  const brLastDivDate = document.createElement('br');
 
-  var spanLastDivDateData = document.createElement('span');
+  const spanLastDivDateData = document.createElement('span');
   if (stockInfo.dividendDate === 'N/A' || stockInfo.dividendDate === 0) {
     spanLastDivDateData.className = 'data no-dividend';
   } else {
@@ -214,10 +214,10 @@ function renderSearchDetail(stockInfo) {
   }
   spanLastDivDateData.textContent = stockInfo.dividendDate;
 
-  var divButton = document.createElement('div');
+  const divButton = document.createElement('div');
   divButton.className = 'flex justify-center';
 
-  var aButton = document.createElement('a');
+  const aButton = document.createElement('a');
   aButton.className = 'add-button';
   aButton.setAttribute('href', '#');
   aButton.setAttribute('id', 'add-to-favorite-button');
@@ -243,19 +243,19 @@ function renderSearchDetail(stockInfo) {
 // renders a list of the stocks added to Favorites
 function renderFavorites() {
 
-  var div = document.createElement('div');
+  const div = document.createElement('div');
 
-  var divListContainer = document.createElement('div');
+  const divListContainer = document.createElement('div');
   divListContainer.className = 'list-container';
 
-  var divHeader = document.createElement('div');
+  const divHeader = document.createElement('div');
   divHeader.className = 'column-1 font-white text-center';
 
-  var h1Title = document.createElement('h1');
+  const h1Title = document.createElement('h1');
   h1Title.className = 'title';
   h1Title.textContent = 'Favorites';
 
-  var pSubtitle = document.createElement('p');
+  const pSubtitle = document.createElement('p');
   pSubtitle.className = 'subtitle';
   pSubtitle.textContent = 'Keep track of your investments and your favorite stocks.';
 
@@ -264,37 +264,37 @@ function renderFavorites() {
 
   if (data.stocks.length !== 0) {
 
-    for (var i = 0; i < data.stocks.length; i++) {
-      var divTitle = document.createElement('div');
+    for (let i = 0; i < data.stocks.length; i++) {
+      const divTitle = document.createElement('div');
       divTitle.className = 'flex font-white justify-between list-line';
 
-      var divStock = document.createElement('div');
+      const divStock = document.createElement('div');
       divStock.className = 'column-3 list';
 
-      var pStock = document.createElement('p');
+      const pStock = document.createElement('p');
       pStock.textContent = data.stocks[i].name;
 
-      var divButtons = document.createElement('div');
+      const divButtons = document.createElement('div');
       divButtons.className = 'flex align-center';
 
-      var aDetail = document.createElement('a');
+      const aDetail = document.createElement('a');
       aDetail.setAttribute('href', '#');
       aDetail.className = 'list-button-margin';
 
-      var divDetailButton = document.createElement('div');
+      const divDetailButton = document.createElement('div');
       divDetailButton.className = 'list-button list-detail-button';
 
-      var iDetail = document.createElement('i');
+      const iDetail = document.createElement('i');
       iDetail.className = 'fas fa-bars';
 
-      var aTrash = document.createElement('a');
+      const aTrash = document.createElement('a');
       aTrash.setAttribute('href', '#');
       aTrash.className = 'list-button-margin';
 
-      var divTrashButton = document.createElement('div');
+      const divTrashButton = document.createElement('div');
       divTrashButton.className = 'list-button list-remove-button';
 
-      var iTrash = document.createElement('i');
+      const iTrash = document.createElement('i');
       iTrash.className = 'fas fa-trash-alt';
 
       divListContainer.append(divTitle);
@@ -309,7 +309,7 @@ function renderFavorites() {
       divTrashButton.append(iTrash);
     }
   } else {
-    var pEmpty = document.createElement('p');
+    const pEmpty = document.createElement('p');
     pEmpty.className = 'empty-list';
     pEmpty.textContent = 'Your list is currently empty, click on Search to find stocks and add them to Favorites.';
     divHeader.append(pEmpty);
@@ -317,11 +317,11 @@ function renderFavorites() {
   return div;
 }
 
-var $dataViewList = document.querySelectorAll('section[data-view]');
+const $dataViewList = document.querySelectorAll('section[data-view]');
 
 // swaps the view accoding to the anchor element that was clicked
 function swapView(view) {
-  for (var i = 0; i < $dataViewList.length; i++) {
+  for (let i = 0; i < $dataViewList.length; i++) {
     if ($dataViewList[i].dataset.view === view) {
       $dataViewList[i].style.display = '';
     } else {
@@ -331,8 +331,8 @@ function swapView(view) {
   data.dataview = view;
 }
 
-var $closeButton = document.getElementById('close-modal-button');
-var $closeModal = document.getElementById('close-modal');
+const $closeButton = document.getElementById('close-modal-button');
+const $closeModal = document.getElementById('close-modal');
 
 // close modal
 $closeButton.addEventListener('click', function (e) {
@@ -340,14 +340,14 @@ $closeButton.addEventListener('click', function (e) {
   document.forms['search-symbol-form'].reset();
 });
 
-var $closeRepeatButton = document.getElementById('close-repeat-modal-button');
+const $closeRepeatButton = document.getElementById('close-repeat-modal-button');
 
 // close repeat modal
 $closeRepeatButton.addEventListener('click', function (e) {
   $repeatModal.style.display = 'none';
 });
 
-var $limitModalButton = document.getElementById('limit-modal-button');
+const $limitModalButton = document.getElementById('limit-modal-button');
 
 // close limit modal
 $limitModalButton.addEventListener('click', function (e) {
@@ -356,7 +356,7 @@ $limitModalButton.addEventListener('click', function (e) {
   document.forms[0].reset();
 })
 
-var $errorModalButton = document.getElementById('error-modal-button');
+const $errorModalButton = document.getElementById('error-modal-button');
 
 // close error modal
 $errorModalButton.addEventListener('click', function(e) {
@@ -364,20 +364,20 @@ $errorModalButton.addEventListener('click', function(e) {
   $loadingSpinner.style.display = 'none';
 })
 
-var $section = document.querySelector('section[data-view="favorite"]');
-var $addedModal = document.getElementById('added-modal');
-var $stockNameAdded = document.getElementById('stock-name-added');
-var $repeatModal = document.getElementById('repeat-modal');
-var $stockNameRepeat = document.getElementById('stock-name-repeat');
+const $section = document.querySelector('section[data-view="favorite"]');
+const $addedModal = document.getElementById('added-modal');
+const $stockNameAdded = document.getElementById('stock-name-added');
+const $repeatModal = document.getElementById('repeat-modal');
+const $stockNameRepeat = document.getElementById('stock-name-repeat');
 
-var $timer = document.getElementById('timer');
+const $timer = document.getElementById('timer');
 
 // add to favorites button
 document.addEventListener('click', function (e) {
   if (e.target.id === 'add-to-favorite-button') {
 
     if (data.stocks.length !== 0) {
-      for (var i = 0; i < data.stocks.length; i++) {
+      for (let i = 0; i < data.stocks.length; i++) {
         if (stockInfo.name === data.stocks[i].name) {
           $repeatModal.style.display = "flex";
           $stockNameRepeat.textContent = stockInfo.name;
@@ -389,8 +389,8 @@ document.addEventListener('click', function (e) {
     data.stocks.unshift(stockInfo);
     $addedModal.style.display = "flex";
     $stockNameAdded.textContent = stockInfo.name;
-    var counter = 2;
-    var addedStockTimer = setInterval(function timerOneSec() {
+    let counter = 2;
+    const addedStockTimer = setInterval(function timerOneSec() {
 
       if (counter > 0) {
         $timer.textContent = counter;
@@ -400,7 +400,7 @@ document.addEventListener('click', function (e) {
         clearInterval(addedStockTimer);
       }
 
-    }, 1000);
+    }, 300);
     counter = 2;
     $timer.textContent = 3;
   }
@@ -434,8 +434,8 @@ function annualFreqConverter(freq) {
 // remove a stock from Favorites
 document.addEventListener('click', function (e) {
   if (e.target.className === 'fas fa-trash-alt' || e.target.className === 'list-button list-remove-button') {
-    var toBeRemoved = e.target.closest('div.list-line').firstElementChild.textContent;
-    for (var i = 0; i < data.stocks.length; i++) {
+    const toBeRemoved = e.target.closest('div.list-line').firstElementChild.textContent;
+    for (let i = 0; i < data.stocks.length; i++) {
       if (data.stocks[i].name === toBeRemoved) {
         data.stocks.splice(i, 1);
         $section.innerHTML = '';
