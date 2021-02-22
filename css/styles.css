@@ -222,22 +222,36 @@ header {
   margin-left: 1rem;
 }
 
-.add-button {
+.favorite-button {
   outline: none;
-  background-color: #238d43;
   color: #fff;
   padding: 0.5rem 2rem;
   border-radius: 1rem;
   font-size: 1.4rem;
   font-family: 'Varela Round', sans-serif;
-  box-shadow: 1px 1px 2px #007b25;
   margin-bottom: 1rem;
 }
 
-.add-button:focus,
-.add-button:hover {
+.add-favorite-button {
+  background-color: #238d43;
+  box-shadow: 1px 1px 2px #007b25;
+}
+
+.add-favorite-button:focus,
+.add-favorite-button:hover {
   background-color: #004615;
   box-shadow: 1px 1px 2px #002b0d;
+}
+
+.remove-favorite-button {
+  background-color: #ec5f5f;
+  box-shadow: 1px 1px 2px #db4d4d;
+}
+
+.remove-favorite-button:focus,
+.remove-favorite-button:hover {
+  background-color: #c22f2f;
+  box-shadow: 1px 1px 2px #882323;
 }
 
 .no-dividend {
@@ -292,6 +306,13 @@ header {
 #stock-name-added {
   color: #007b25;
   font-weight: 700;
+}
+
+.pop-up {
+  position: absolute;
+  margin-left: 30px;
+  padding: 1px 5px;
+  font-size: 0.9rem;
 }
 
 .link {

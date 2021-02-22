@@ -139,41 +139,24 @@ const $section = document.querySelector('section[data-view="favorite"]');
 const $addedModal = document.getElementById('added-modal');
 const $stockNameAdded = document.getElementById('stock-name-added');
 const $repeatModal = document.getElementById('repeat-modal');
-const $stockNameRepeat = document.getElementById('stock-name-repeat');
-
-const $timer = document.getElementById('timer');
 
 // add to favorites button
 document.addEventListener('click', (e) => {
-  if (e.target.id === 'add-to-favorite-button') {
-
-    if (data.stocks.length !== 0) {
-      for (let i = 0; i < data.stocks.length; i++) {
-        if (stockInfo.name === data.stocks[i].name) {
-          $repeatModal.style.display = "flex";
-          $stockNameRepeat.textContent = stockInfo.name;
-          return;
-        }
-      }
-    }
+  if (e.target.className === 'favorite-button add-favorite-button') {
 
     data.stocks.unshift(stockInfo);
     $addedModal.style.display = "flex";
     $stockNameAdded.textContent = stockInfo.name;
     let counter = 2;
     const addedStockTimer = setInterval(() => {
-
       if (counter > 0) {
-        $timer.textContent = counter;
         counter--;
       } else {
         $addedModal.style.display = "none";
         clearInterval(addedStockTimer);
       }
-
-    }, 300);
+    }, 500);
     counter = 2;
-    $timer.textContent = 3;
   }
 
   if (e.target.dataset.view === 'logo') {
@@ -191,7 +174,8 @@ document.addEventListener('click', (e) => {
 
 // remove a stock from Favorites
 document.addEventListener('click', (e) => {
-  if (e.target.className === 'fas fa-trash-alt' || e.target.className === 'list-button list-remove-button') {
+  const { className } = e.target;
+  if (className === 'fas fa-trash-alt' || className === 'list-button list-remove-button') {
     const toBeRemoved = e.target.closest('div.list-line').firstElementChild.textContent;
     for (let i = 0; i < data.stocks.length; i++) {
       if (data.stocks[i].name === toBeRemoved) {
@@ -200,6 +184,15 @@ document.addEventListener('click', (e) => {
         $section.append(renderFavorites());
       }
     }
+  }
+  if (className === 'favorite-button remove-favorite-button') {
+    const { stocks } = data;
+    stocks.filter((stock, index) => {
+      if (stock.symbol === stockInfo.symbol) {
+        stocks.splice(index, 1);
+      }
+      return null
+    })
   }
 });
 
@@ -404,11 +397,18 @@ const tools = {
   divButton.className = 'flex justify-center';
 
   const aButton = document.createElement('a');
-  aButton.className = 'add-button';
+  aButton.className = 'favorite-button add-favorite-button';
   aButton.setAttribute('href', '#');
-  aButton.setAttribute('id', 'add-to-favorite-button');
+  aButton.setAttribute('id', 'favorite-button');
   aButton.setAttribute('onclick', 'this.blur()');
   aButton.textContent = 'Add to Favorites';
+
+  for (let i = 0; i < data.stocks.length; i++) {
+    if (stockInfo.name === data.stocks[i].name) {
+      aButton.textContent = 'Remove from Favorites';
+      aButton.className = 'favorite-button remove-favorite-button';
+    }
+  }
 
   divSearchDetailContainer.append(divTitle, divInfo);
   divTitle.append(h1Title);
