@@ -335,6 +335,10 @@ header {
   animation: loading 1s infinite ease;
 }
 
+.nav-link:hover {
+  color: #8ecc33;
+}
+
 @keyframes loading {
   0%,
   100% {
