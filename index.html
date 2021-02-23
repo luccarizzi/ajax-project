@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AJAX Project</title>
+  <title>Turtl</title>
   <link
     rel="stylesheet"
     crossorigin="anonymous"
@@ -25,29 +25,6 @@
       id="close-modal-button"
       class="close-modal-button"
       name="close-modal-button"
-      type="submit"
-      value="Close">
-    </div>
-  </div>
-  <div id="added-modal" class="added-modal" style="display: none">
-    <div class="modal-content flex flex-column align-center">
-      <h2>Stock Added</h2>
-      <p>
-        The <span id="stock-name-added"></span> stock has been added to Favorites.
-      </p>
-      <p>Please wait <span id="timer">3</span> seconds.</p>
-    </div>
-  </div>
-  <div id="repeat-modal" class="repeat-modal" style="display: none">
-    <div class="modal-content flex flex-column align-center">
-      <h2>Stock has already been added</h2>
-      <p>
-        The <span id="stock-name-repeat"></span> stock has already been added to Favorites. Please pick another stock.
-      </p>
-      <input
-      id="close-repeat-modal-button"
-      class="close-modal-button"
-      name="close-repeat-modal-button"
       type="submit"
       value="Close">
     </div>
@@ -89,8 +66,11 @@
         <a data-view="logo" href="#">turtl</a>
       </div>
       <nav class="flex justify-around align-center">
-        <a data-view="favorite" href="#"><i class="fas fa-star"></i> Favorites</a>
-        <a data-view="search" href="#"><i class="fas fa-search"></i> Search</a>
+        <a class="nav-link" data-view="favorite" href="#"><i class="fas fa-star"></i>
+          Favorites
+          <div id="pop-up" class="pop-up" style="display: none"></div>
+        </a>
+        <a class="nav-link" data-view="search" href="#"><i class="fas fa-search"></i> Search</a>
       </nav>
     </div>
   </header>
