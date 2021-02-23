@@ -29,28 +29,6 @@
       value="Close">
     </div>
   </div>
-  <div id="added-modal" class="added-modal" style="display: none">
-    <div class="modal-content flex flex-column align-center">
-      <h2>Stock Added</h2>
-      <p>
-        The <span id="stock-name-added"></span> stock has been added to Favorites.
-      </p>
-    </div>
-  </div>
-  <div id="repeat-modal" class="repeat-modal" style="display: none">
-    <div class="modal-content flex flex-column align-center">
-      <h2>Stock has already been added</h2>
-      <p>
-        The <span id="stock-name-repeat"></span> stock has already been added to Favorites. Please pick another stock.
-      </p>
-      <input
-      id="close-repeat-modal-button"
-      class="close-modal-button"
-      name="close-repeat-modal-button"
-      type="submit"
-      value="Close">
-    </div>
-  </div>
   <div id="loading-spinner" class="loading-modal" style="display: none">
     <div class="loader"></div>
   </div>
@@ -90,9 +68,7 @@
       <nav class="flex justify-around align-center">
         <a data-view="favorite" href="#"><i class="fas fa-star"></i>
           Favorites
-          <div class="pop-up">
-            + stock name
-          </div>
+          <div id="pop-up" class="pop-up" style="display: none"></div>
         </a>
         <a data-view="search" href="#"><i class="fas fa-search"></i> Search</a>
       </nav>
